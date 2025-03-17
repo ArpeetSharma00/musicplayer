@@ -25,19 +25,15 @@ searchBar.addEventListener("keyup", function() {
     let query = searchBar.value.toLowerCase();
     let songs = document.querySelectorAll("#playlist-items li");
     songs.forEach(song => {
-        if (song.textContent.toLowerCase().includes(query)) {
-            song.style.display = "block";
-        } else {
-            song.style.display = "none";
-        }
+        song.style.display = song.textContent.toLowerCase().includes(query) ? "block" : "none";
     });
 });
 
 // Sample Playlist
 const playlist = [
-    { title: "Hero - Charlie Puth", src: "C:\Users\SSD\Music\music\Hero - Charlie Puth.mp3" },
-    { title: "Rainforest Sounds", src: "rainforest.mp3" },
-    { title: "Ocean Waves", src: "ocean.mp3" }
+    { title: "Birds Chirping", src: "birds.mp3", album: "birds.jpg" },
+    { title: "Rainforest Sounds", src: "rainforest.mp3", album: "rainforest.jpg" },
+    { title: "Ocean Waves", src: "ocean.mp3", album: "ocean.jpg" }
 ];
 
 const playlistContainer = document.getElementById("playlist-items");
@@ -49,43 +45,12 @@ const playPauseBtn = document.getElementById("play-pause-btn");
 const progressBar = document.getElementById("progress-bar");
 const currentTimeEl = document.getElementById("current-time");
 const durationEl = document.getElementById("duration");
-const shuffleBtn = document.getElementById("shuffle-btn");
-const repeatBtn = document.getElementById("repeat-btn");
 
 let currentSongIndex = 0;
+const shuffleBtn = document.getElementById("shuffle-btn");
+const repeatBtn = document.getElementById("repeat-btn");
 let isShuffle = false;
 let isRepeat = false;
-
-// Function to Play Song
-function playSong(index) {
-    let song = playlist[index];
-    nowPlaying.textContent = song.title;
-    audioPlayer.src = song.src;
-    albumArt.src = song.album;
-    audioPlayer.play();
-    playerContainer.classList.remove("hidden");
-    playPauseBtn.textContent = "⏸️"; // Change button to pause
-    currentSongIndex = index;
-}
-
-// Add Songs to Playlist
-playlist.forEach((song, index) => {
-    let li = document.createElement("li");
-    li.textContent = song.title;
-    li.addEventListener("click", () => playSong(index));
-    playlistContainer.appendChild(li);
-});
-
-// Play/Pause Button
-playPauseBtn.addEventListener("click", () => {
-    if (audioPlayer.paused) {
-        audioPlayer.play();
-        playPauseBtn.textContent = "⏸️";
-    } else {
-        audioPlayer.pause();
-        playPauseBtn.textContent = "▶️";
-    }
-});
 
 // Shuffle Button
 shuffleBtn.addEventListener("click", () => {
@@ -120,6 +85,38 @@ audioPlayer.addEventListener("ended", () => {
         audioPlayer.play();
     } else {
         document.getElementById("next-btn").click();
+    }
+});
+
+
+// Function to Play Song
+function playSong(index) {
+    let song = playlist[index];
+    nowPlaying.textContent = song.title;
+    audioPlayer.src = song.src;
+    albumArt.src = song.album;
+    audioPlayer.play();
+    playerContainer.classList.remove("hidden");
+    playPauseBtn.textContent = "⏸️"; // Change button to pause
+    currentSongIndex = index;
+}
+
+// Add Songs to Playlist
+playlist.forEach((song, index) => {
+    let li = document.createElement("li");
+    li.textContent = song.title;
+    li.addEventListener("click", () => playSong(index));
+    playlistContainer.appendChild(li);
+});
+
+// Play/Pause Button
+playPauseBtn.addEventListener("click", () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseBtn.textContent = "⏸️";
+    } else {
+        audioPlayer.pause();
+        playPauseBtn.textContent = "▶️";
     }
 });
 
