@@ -7,16 +7,17 @@ const albumArt = document.getElementById("albumArt");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const removeSongBtn = document.getElementById("removeSongBtn");
 
-let songs = JSON.parse(localStorage.getItem("songs")) || [];
-let currentSongIndex = 0;
-
-// Set up album input (hidden)
+// Hidden file input for album art
+const albumInput = document.createElement("input");
 albumInput.type = "file";
 albumInput.accept = "image/*";
 albumInput.style.display = "none";
 document.body.appendChild(albumInput);
 
-// Load stored songs
+let songs = JSON.parse(localStorage.getItem("songs")) || [];
+let currentSongIndex = 0;
+
+// Load saved songs
 function loadSongs() {
     songList.innerHTML = "";
     songs.forEach((song, index) => {
@@ -28,31 +29,18 @@ function loadSongs() {
     });
 }
 
-// Function to load songs on startup
-function loadSongs() {
-    songList.innerHTML = "";
-    songs.forEach((song, index) => {
-        let songItem = document.createElement("div");
-        songItem.classList.add("songItem");
-        songItem.textContent = song.name;
-        songItem.addEventListener("click", () => playSong(index));
-        songList.appendChild(songItem);
-    });
-}
-
-
-// Handle audio file upload
+// Upload audio files
 fileInput.addEventListener("change", async (event) => {
     const files = event.target.files;
     for (let file of files) {
         const base64Audio = await convertToBase64(file);
         songs.push({ name: file.name, url: base64Audio, album: "default-album.jpg" });
     }
-    localStorage.setItem("songs", JSON.stringify(songs));
+    updateLocalStorage();
     loadSongs();
 });
 
-// Convert audio file to Base64 for storage
+// Convert file to Base64
 function convertToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -62,10 +50,10 @@ function convertToBase64(file) {
     });
 }
 
-// Click album art to upload an image
+// Click album art to upload
 albumArt.addEventListener("click", () => {
     if (songs.length > 0) {
-        albumInput.click(); // Open file input
+        albumInput.click();
     }
 });
 
@@ -75,24 +63,23 @@ albumInput.addEventListener("change", async (event) => {
         const file = event.target.files[0];
         const base64Image = await convertToBase64(file);
 
-        // Save album art for the current song
+        // Assign to current song
         songs[currentSongIndex].album = base64Image;
         updateLocalStorage();
         albumArt.src = base64Image;
     }
 });
 
-
-// Ensure local storage is updated with the latest songs data
+// Save to local storage
 function updateLocalStorage() {
     localStorage.setItem("songs", JSON.stringify(songs));
 }
 
-// Search songs
+// Search functionality
 searchBar.addEventListener("input", () => {
     let query = searchBar.value.toLowerCase();
     let filteredSongs = songs.filter(song => song.name.toLowerCase().includes(query));
-
+    
     songList.innerHTML = "";
     filteredSongs.forEach((song, index) => {
         let songItem = document.createElement("div");
@@ -107,37 +94,41 @@ searchBar.addEventListener("input", () => {
 function playSong(index) {
     currentSongIndex = index;
     audioPlayer.src = songs[index].url;
+    albumArt.src = songs[index].album || "default-album.jpg";
     playerContainer.classList.remove("hidden");
     audioPlayer.play();
     playPauseBtn.textContent = "⏸";
+    albumArt.classList.add("spinning");
 }
 
-// Remove currently playing song
+// Remove song
 removeSongBtn.addEventListener("click", () => {
     if (songs.length > 0) {
-        songs.splice(currentSongIndex, 1); // Remove from array
-        localStorage.setItem("songs", JSON.stringify(songs)); // Update storage
-        loadSongs(); // Reload song list
+        songs.splice(currentSongIndex, 1);
+        updateLocalStorage();
+        loadSongs();
 
         if (songs.length > 0) {
-            currentSongIndex = Math.min(currentSongIndex, songs.length - 1); // Adjust index
-            playSong(currentSongIndex); // Play next song
+            currentSongIndex = Math.min(currentSongIndex, songs.length - 1);
+            playSong(currentSongIndex);
         } else {
-            playerContainer.classList.add("hidden"); // Hide player if empty
+            playerContainer.classList.add("hidden");
             audioPlayer.src = "";
+            albumArt.classList.remove("spinning");
         }
     }
 });
 
-
-// Play/Pause functionality
+// Play/Pause button
 playPauseBtn.addEventListener("click", () => {
     if (audioPlayer.paused) {
         audioPlayer.play();
         playPauseBtn.textContent = "⏸";
+        albumArt.classList.add("spinning");
     } else {
         audioPlayer.pause();
         playPauseBtn.textContent = "▶";
+        albumArt.classList.remove("spinning");
     }
 });
 
