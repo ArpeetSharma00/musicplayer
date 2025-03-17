@@ -152,7 +152,7 @@ const fish = document.getElementById("fish");
 // Lyrics database for different songs
 const lyricsDatabase = {
     "song1.mp3": [
-[0:00]
+        { [0:00]
 Cuz you're my pretty
 Definition of beauty
 Pretty girl, you make everything feel alright
@@ -173,7 +173,8 @@ And there's nothing I change
 He my love stays the same
 Cuz you're my pretty
 [0:32]
-Definition of beauty
+Definition of beauty },
+       
     ],
     "song2.mp3": [
         { time: 0, text: "A gentle breeze whispers low," },
@@ -207,8 +208,8 @@ function updateLyrics() {
     // Update lyrics display
     lyricsText.innerHTML = `<p>${currentLine}</p>`;
 
-    // Move the fish letter by letter
-    fish.style.transform = `translateX(${currentLine.length * 10}px)`;
+    // Move the fish based on text length
+    fish.style.transform = `translateX(-50%) translateY(${Math.min(currentLine.length * -1, -10)}px)`;
 }
 
 // Update lyrics when song plays
@@ -218,4 +219,5 @@ audioPlayer.addEventListener("timeupdate", updateLyrics);
 audioPlayer.addEventListener("loadeddata", () => {
     lyricsText.innerHTML = "<p>Loading lyrics...</p>";
 });
+
 
