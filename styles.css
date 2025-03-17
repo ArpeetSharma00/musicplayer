@@ -153,6 +153,16 @@ button:hover {
     box-sizing: border-box; /* Ensures padding is included in width */
 }
 
+#backgroundImage {
+    width: 80%;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1; /* Keeps the image behind everything */
+}
+
 /* Ensure lyrics text stays inside */
 #lyricsText {
     text-align: center;
@@ -163,6 +173,8 @@ button:hover {
     font-weight: bold;
     word-wrap: break-word; /* Prevents text from overflowing */
 }
+
+
 
 /* Center and animate the fish */
 #fish {
