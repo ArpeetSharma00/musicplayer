@@ -132,5 +132,16 @@ playPauseBtn.addEventListener("click", () => {
     }
 });
 
+const progressBar = document.getElementById("progressBar");
+
+// Update progress bar as song plays
+audioPlayer.addEventListener("timeupdate", () => {
+    if (audioPlayer.duration) {
+        let progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.style.width = progress + "%";
+    }
+});
+
+
 // Load songs on page load
 window.onload = loadSongs;
