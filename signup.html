@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | EchoAltar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Sign Up</h2>
+        <input type="text" id="signupUsername" placeholder="Enter Username">
+        <input type="password" id="signupPassword" placeholder="Enter Password">
+        <button onclick="registerUser()">Sign Up</button>
+        <p id="signupMessage"></p>
+        <p>Already have an account? <a href="auth.html">Login</a></p>
+    </div>
+
+    <script>
+        function registerUser() {
+            const username = document.getElementById("signupUsername").value;
+            const password = document.getElementById("signupPassword").value;
+
+            if (username && password) {
+                localStorage.setItem("adminUsername", username);
+                localStorage.setItem("adminPassword", password);
+                document.getElementById("signupMessage").textContent = "Account created! You can now log in.";
+                setTimeout(() => {
+                    window.location.href = "auth.html";
+                }, 1500);
+            } else {
+                document.getElementById("signupMessage").textContent = "Please enter a username and password.";
+            }
+        }
+    </script>
+</body>
+</html>
