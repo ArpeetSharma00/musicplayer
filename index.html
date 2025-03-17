@@ -11,11 +11,15 @@
         <!-- Search Bar -->
         <input type="text" id="searchBar" placeholder="Search songs...">
 
-        <!-- Upload Button -->
-        <input type="file" id="fileInput" accept="audio/*" multiple>
-        
-        <!-- Song List -->
-        <div id="songList"></div>
+        <!-- File Upload for Songs -->
+<input type="file" id="fileInput" accept="audio/*">
+
+<!-- List to Display Added Songs -->
+<ul id="songList"></ul>
+
+<!-- Optional: Button to Clear All Songs -->
+<button onclick="clearAllSongs()">Clear All Songs</button>
+
 
         <!-- Music Player -->
         <div id="playerContainer" class="hidden">
