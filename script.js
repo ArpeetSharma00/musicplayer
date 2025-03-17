@@ -71,6 +71,10 @@ albumInput.addEventListener("change", (event) => {
     }
 });
 
+// Ensure local storage is updated with the latest songs data
+function updateLocalStorage() {
+    localStorage.setItem("songs", JSON.stringify(songs));
+}
 
 // Search songs
 searchBar.addEventListener("input", () => {
