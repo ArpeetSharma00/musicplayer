@@ -6,6 +6,9 @@ const songList = document.getElementById("songList");
 const albumArtContainer = document.getElementById("albumArtContainer");
 const albumArtImg = document.getElementById("albumArtImg");
 
+// Initially hide album art
+albumArtContainer.style.display = "none";
+
 // Load saved songs but keep them hidden
 let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
 
@@ -28,14 +31,18 @@ fileInput.addEventListener("change", (event) => {
 // Function to display search results
 function displaySearchResults(query) {
     songList.innerHTML = ""; // Clear previous list
+    let found = false;
+
     savedSongs.forEach(song => {
         if (song.name.toLowerCase().includes(query.toLowerCase())) {
+            found = true;
             const li = document.createElement("li");
             li.textContent = song.name;
             li.addEventListener("click", () => {
                 audioPlayer.src = song.url;
                 audioPlayer.play();
                 updateAlbumArt(song.albumArt);
+                albumArtContainer.style.display = "block"; // Show album art when playing
             });
 
             // ➖ Remove Button
@@ -46,12 +53,21 @@ function displaySearchResults(query) {
                 e.stopPropagation();
                 removeSong(song.name);
                 li.remove();
+                if (song.url === audioPlayer.src) {
+                    audioPlayer.src = "";
+                    albumArtContainer.style.display = "none"; // Hide album art when song is removed
+                }
             });
 
             li.appendChild(removeBtn);
             songList.appendChild(li);
         }
     });
+
+    // Hide album art if no search result found
+    if (!found) {
+        albumArtContainer.style.display = "none";
+    }
 }
 
 // Search bar functionality (reveals songs only when searched)
@@ -61,6 +77,7 @@ searchBar.addEventListener("input", function () {
         displaySearchResults(searchText);
     } else {
         songList.innerHTML = ""; // Keep list empty if no search
+        albumArtContainer.style.display = "none"; // Hide album art if nothing is searched
     }
 });
 
@@ -95,5 +112,11 @@ albumArtContainer.addEventListener("click", () => {
 
 // Update album art
 function updateAlbumArt(imageSrc) {
-    albumArtImg.src = imageSrc || "default_album.png";
+    if (imageSrc) {
+        albumArtImg.src = imageSrc;
+        albumArtContainer.style.display = "block"; // Show album art if updated
+    } else {
+        albumArtImg.src = "default_album.png";
+        albumArtContainer.style.display = "none"; // Hide if no album art
+    }
 }
