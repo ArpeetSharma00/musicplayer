@@ -7,8 +7,9 @@ const albumArtImg = document.getElementById("albumArtImg");
 const lyricsText = document.getElementById("lyricsText");
 const fish = document.getElementById("fish");
 const progressBar = document.getElementById("progressBar");
+const searchBar = document.getElementById("searchBar");
 
-// Load saved songs and album art from localStorage
+// Load saved songs from localStorage
 window.addEventListener("load", () => {
     const savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
     savedSongs.forEach(song => addSongToList(song.name, song.url, song.albumArt));
@@ -38,7 +39,7 @@ fileInput.addEventListener("change", (event) => {
     }
 });
 
-// Add song to the list
+// Add song to list
 function addSongToList(name, url, albumArt) {
     const li = document.createElement("li");
     li.textContent = name;
@@ -53,7 +54,7 @@ function addSongToList(name, url, albumArt) {
     removeBtn.textContent = "❌";
     removeBtn.style.marginLeft = "10px";
     removeBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent playing when clicking remove
+        e.stopPropagation();
         removeSong(name);
         li.remove();
     });
@@ -77,7 +78,7 @@ function clearAllSongs() {
     updateAlbumArt("");
 }
 
-// Click on album art container to upload a separate album art
+// Upload album art separately
 albumArtContainer.addEventListener("click", () => {
     const albumInput = document.createElement("input");
     albumInput.type = "file";
@@ -91,7 +92,6 @@ albumArtContainer.addEventListener("click", () => {
             fileReader.onload = function (e) {
                 updateAlbumArt(e.target.result);
 
-                // Save album art for the currently playing song
                 let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
                 savedSongs = savedSongs.map(song => 
                     song.url === audioPlayer.src ? { ...song, albumArt: e.target.result } : song
@@ -103,69 +103,15 @@ albumArtContainer.addEventListener("click", () => {
     albumInput.click();
 });
 
-// Update album art display
+// Update album art
 function updateAlbumArt(imageSrc) {
-    if (imageSrc) {
-        albumArtImg.src = imageSrc;
-    } else {
-        albumArtImg.src = "default_album.png"; // Use a default image
-    }
+    albumArtImg.src = imageSrc || "default_album.png";
 }
 
-// Sync lyrics with song playback
-function updateLyrics() {
-    const currentTime = audioPlayer.currentTime;
-    const songFileName = audioPlayer.src.split('/').pop();
-
-    const lyricsDatabase = {
-        "song1.mp3": [
-            { time: 0, text: "Here comes the ocean waves," },
-            { time: 5, text: "Flowing like a melody..." },
-            { time: 10, text: "Underneath the moonlit sky," },
-            { time: 15, text: "The tides are calling me." }
-        ],
-        "song2.mp3": [
-            { time: 0, text: "A gentle breeze whispers low," },
-            { time: 6, text: "Moonlight sparkles as we go..." },
-            { time: 12, text: "Sailing through the waves so free," },
-            { time: 18, text: "A song of love beneath the sea." }
-        ]
-    };
-
-    if (!lyricsDatabase[songFileName]) {
-        lyricsText.innerHTML = "<p>No lyrics available.</p>";
-        return;
-    }
-
-    let currentLine = "";
-    let lyrics = lyricsDatabase[songFileName];
-
-    for (let i = 0; i < lyrics.length; i++) {
-        if (currentTime >= lyrics[i].time) {
-            currentLine = lyrics[i].text;
-        } else {
-            break;
-        }
-    }
-
-    lyricsText.innerHTML = `<p>${currentLine}</p>`;
-
-    // Move the fish across the lyrics
-    fish.style.transform = `translateX(-50%) translateY(${Math.min(currentLine.length * -1, -10)}px)`;
-}
-
-// Sync progress bar with ocean wave effect
-audioPlayer.addEventListener("timeupdate", () => {
-    const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-    progressBar.style.backgroundPosition = `${percentage}% 50%`;
-    updateLyrics();
-});
-
-// Play and pause button
-document.getElementById("playPauseBtn").addEventListener("click", () => {
-    if (audioPlayer.paused) {
-        audioPlayer.play();
-    } else {
-        audioPlayer.pause();
-    }
+// Search bar functionality
+searchBar.addEventListener("input", function () {
+    const searchText = searchBar.value.toLowerCase();
+    Array.from(songList.children).forEach(li => {
+        li.style.display = li.textContent.toLowerCase().includes(searchText) ? "block" : "none";
+    });
 });
