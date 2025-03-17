@@ -5,7 +5,7 @@ const songList = document.getElementById("songList");
 const albumArtContainer = document.getElementById("albumArtContainer");
 const albumArtImg = document.getElementById("albumArtImg");
 const lyricsText = document.getElementById("lyricsText");
-const fish = document.getElementById("fish");
+const leaf = document.getElementById("leaf");
 const progressBar = document.getElementById("progressBar");
 const searchBar = document.getElementById("searchBar");
 
@@ -49,9 +49,9 @@ function addSongToList(name, url, albumArt) {
         updateAlbumArt(albumArt);
     });
 
-    // Remove Button
+    // ➖ Remove Button
     const removeBtn = document.createElement("button");
-    removeBtn.textContent = "❌";
+    removeBtn.textContent = "➖";
     removeBtn.style.marginLeft = "10px";
     removeBtn.addEventListener("click", (e) => {
         e.stopPropagation();
