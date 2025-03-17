@@ -152,10 +152,28 @@ const fish = document.getElementById("fish");
 // Lyrics database for different songs
 const lyricsDatabase = {
     "song1.mp3": [
-        { time: 0, text: "Here comes the ocean waves," },
-        { time: 5, text: "Flowing like a melody..." },
-        { time: 10, text: "Underneath the moonlit sky," },
-        { time: 15, text: "The tides are calling me." }
+[0:00]
+Cuz you're my pretty
+Definition of beauty
+Pretty girl, you make everything feel alright
+Pretty girl, pretty
+[0:08]
+Has the stars in the sky about a ride
+The way where real live
+And heaven knows that it breaks my soul
+Oh you don't know you're beautiful
+[0:16]
+And I won't let it go
+Just to get a glimpse of your face
+And he travel quite a way
+Ninety million miles to see what I get to see every day
+[0:24]
+Hey darling, you're beautiful in every single way
+And there's nothing I change
+He my love stays the same
+Cuz you're my pretty
+[0:32]
+Definition of beauty
     ],
     "song2.mp3": [
         { time: 0, text: "A gentle breeze whispers low," },
