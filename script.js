@@ -52,9 +52,9 @@ const durationEl = document.getElementById("duration");
 const shuffleBtn = document.getElementById("shuffle-btn");
 const repeatBtn = document.getElementById("repeat-btn");
 
+let currentSongIndex = 0;
 let isShuffle = false;
 let isRepeat = false;
-let currentSongIndex = 0;
 
 // Function to Play Song
 function playSong(index) {
