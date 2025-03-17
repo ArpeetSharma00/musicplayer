@@ -81,6 +81,39 @@ function addSongToList(title, songURL) {
     songList.appendChild(newSong);
 }
 
+// Check if the user is an admin (Logged in via auth page)
+const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+// Show upload button only if admin
+if (isAdmin) {
+    document.getElementById("uploadBtn").style.display = "block";
+}
+
+// Handle song upload
+document.getElementById("songUpload").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const objectURL = URL.createObjectURL(file);
+        addSongToLists(file.name, objectURL);
+    }
+});
+
+// Add uploaded songs to both Trending and Top Playlists
+function addSongToLists(title, songURL) {
+    let trendingList = document.getElementById("trendingList");
+    let playlistList = document.getElementById("playlistList");
+
+    let newSong = document.createElement("li");
+    newSong.textContent = "🎵 " + title;
+    newSong.onclick = function () {
+        openPlayer(title, "default.jpg", songURL);
+    };
+
+    // Add to both sections
+    trendingList.appendChild(newSong);
+    playlistList.appendChild(newSong.cloneNode(true)); // Clone to add to Top Playlists
+}
+
 // Open the music player with the uploaded song
 function openPlayer(title, albumArt, songFile) {
     document.getElementById("audioSource").src = songFile;
