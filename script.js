@@ -33,6 +33,21 @@ fileInput.addEventListener("change", (event) => {
     loadSongs();
 });
 
+// Handle album art uploads
+albumInput.addEventListener("change", (event) => {
+    if (songs.length > 0) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            songs[currentSongIndex].album = e.target.result;
+            albumArt.src = e.target.result;
+            localStorage.setItem("songs", JSON.stringify(songs));
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+
 // Search songs
 searchBar.addEventListener("input", () => {
     let query = searchBar.value.toLowerCase();
