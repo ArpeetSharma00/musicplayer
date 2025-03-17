@@ -93,19 +93,30 @@ ul li:hover {
     margin: 10px 0;
 }
 
+/* Controls container on the right side */
 .controls {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    gap: 15px;
 }
 
+/* Styling for the like and repeat buttons */
 .controls button {
-    background: transparent;
+    background: none;
     border: none;
     color: white;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
+    transition: 0.3s;
 }
+
+.controls button:hover {
+    color: #ffcc00;
+}
+
 
 /* Minimized Music Player */
 .player-minimized {
