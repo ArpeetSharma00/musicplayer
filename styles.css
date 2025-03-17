@@ -39,4 +39,31 @@ button {
 
 #player-container {
     margin-top: 20px;
+    padding: 15px;
+}
+
+#album-art {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#progress-bar {
+    width: 50%;
+    cursor: pointer;
 }
