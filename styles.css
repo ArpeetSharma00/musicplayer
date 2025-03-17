@@ -63,17 +63,25 @@ body {
     height: 100%;
     object-fit: cover;
     cursor: pointer;
-    transition: transform 0.5s;
+    transition: transform 0.3s, opacity 0.3s;
 }
 
-.spinning {
-    animation: spin 3s linear infinite;
+/* New pulse animation when playing */
+.pulsing {
+    animation: pulse 1.5s infinite alternate ease-in-out;
 }
 
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
 }
+
 
 button {
     margin: 5px;
