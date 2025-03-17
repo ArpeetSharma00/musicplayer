@@ -1,5 +1,4 @@
 const fileInput = document.getElementById("fileInput");
-const albumInput = document.getElementById("albumInput");
 const searchBar = document.getElementById("searchBar");
 const songList = document.getElementById("songList");
 const playerContainer = document.getElementById("playerContainer");
@@ -71,16 +70,15 @@ albumArt.addEventListener("click", () => {
 });
 
 // Handle album art upload
-albumInput.addEventListener("change", (event) => {
+albumInput.addEventListener("change", async (event) => {
     if (songs.length > 0) {
         const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            songs[currentSongIndex].album = e.target.result;
-            updateLocalStorage();
-            albumArt.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+        const base64Image = await convertToBase64(file);
+
+        // Save album art for the current song
+        songs[currentSongIndex].album = base64Image;
+        updateLocalStorage();
+        albumArt.src = base64Image;
     }
 });
 
