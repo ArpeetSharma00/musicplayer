@@ -14,6 +14,10 @@
 
     <main>
         <section class="trending">
+            <!-- Hidden File Input for Uploading Songs (Only for You) -->
+<input type="file" id="songUpload" accept="audio/*" style="display: none;">
+<button id="uploadBtn" onclick="document.getElementById('songUpload').click()" style="display: none;">Upload Song</button>
+
             <h2>Trending Songs</h2>
             <ul id="trendingList">
                 <li onclick="openPlayer('Whispering Winds', 'whispering.jpg', 'song1.mp3')">🌿 Whispering Winds - Nature Beats</li>
