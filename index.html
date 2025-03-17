@@ -34,10 +34,10 @@
         </section>
     </main>
 
-    <!-- Music Player Pop-up -->
-    <div id="musicPlayer" class="player-popup">
+    <!-- Music Player -->
+    <div id="musicPlayer" class="player-fullscreen">
         <div class="player-content">
-            <span class="close-btn" onclick="closePlayer()">✖</span>
+            <span class="close-btn" onclick="minimizePlayer()">➖</span>
             <img id="albumArt" src="default.jpg" alt="Album Art">
             <h3 id="songTitle">Now Playing</h3>
             <audio id="audioPlayer" controls>
@@ -49,6 +49,13 @@
                 <button id="likeBtn">❤️</button>
             </div>
         </div>
+    </div>
+
+    <!-- Minimized Music Player -->
+    <div id="minimizedPlayer" class="player-minimized" onclick="maximizePlayer()">
+        <img id="miniAlbumArt" src="default.jpg" alt="Album Art">
+        <span id="miniSongTitle">Now Playing</span>
+        <button id="miniPausePlay">⏸️</button>
     </div>
 
     <script src="script.js"></script>
