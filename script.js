@@ -84,10 +84,15 @@ function addSongToList(title, songURL) {
 // Check if the user is an admin (Logged in via auth page)
 const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-// Show upload button only if admin
+// Show upload button only for admin
 if (isAdmin) {
     document.getElementById("uploadBtn").style.display = "block";
 }
+
+// Load saved songs when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+    loadSavedSongs();
+});
 
 // Handle song upload
 document.getElementById("songUpload").addEventListener("change", function(event) {
@@ -95,10 +100,11 @@ document.getElementById("songUpload").addEventListener("change", function(event)
     if (file) {
         const objectURL = URL.createObjectURL(file);
         addSongToLists(file.name, objectURL);
+        saveSong(file.name, objectURL);
     }
 });
 
-// Add uploaded songs to both Trending and Top Playlists
+// Function to add songs to Trending & Top Playlists
 function addSongToLists(title, songURL) {
     let trendingList = document.getElementById("trendingList");
     let playlistList = document.getElementById("playlistList");
@@ -109,15 +115,26 @@ function addSongToLists(title, songURL) {
         openPlayer(title, "default.jpg", songURL);
     };
 
-    // Add to both sections
     trendingList.appendChild(newSong);
-    playlistList.appendChild(newSong.cloneNode(true)); // Clone to add to Top Playlists
+    playlistList.appendChild(newSong.cloneNode(true)); // Clone for Top Playlists
 }
 
-// Open the music player with the uploaded song
+// Function to save uploaded songs in localStorage
+function saveSong(title, songURL) {
+    let savedSongs = JSON.parse(localStorage.getItem("uploadedSongs")) || [];
+    savedSongs.push({ title, songURL });
+    localStorage.setItem("uploadedSongs", JSON.stringify(savedSongs));
+}
+
+// Function to load saved songs from localStorage
+function loadSavedSongs() {
+    let savedSongs = JSON.parse(localStorage.getItem("uploadedSongs")) || [];
+    savedSongs.forEach(song => addSongToLists(song.title, song.songURL));
+}
+
+// Open music player with selected song
 function openPlayer(title, albumArt, songFile) {
     document.getElementById("audioSource").src = songFile;
     document.getElementById("audioPlayer").load();
     document.getElementById("audioPlayer").play();
 }
-
