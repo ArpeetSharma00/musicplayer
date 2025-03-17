@@ -25,6 +25,22 @@
             <audio id="audio-player" controls></audio>
         </div>
 
+        <audio id="audio-player"></audio>
+
+            <div class="controls">
+                <button id="prev-btn">⏮️</button>
+                <button id="play-pause-btn">▶️</button>
+                <button id="next-btn">⏭️</button>
+            </div>
+
+            <div class="progress-container">
+                <span id="current-time">0:00</span>
+                <input type="range" id="progress-bar" value="0" min="0" max="100">
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+
         <div id="login-section">
             <button id="google-login">Login with Google</button>
             <button id="facebook-login">Login with Facebook</button>
