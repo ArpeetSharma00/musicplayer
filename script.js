@@ -173,3 +173,17 @@ fileInput.addEventListener("change", function (event) {
         }
     }
 });
+
+document.getElementById("imageInput").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            songs[currentSong].image = e.target.result;
+            albumArt.src = e.target.result;
+            saveSongToDB(songs[currentSong]); // Save updated song data
+        };
+    }
+});
+
