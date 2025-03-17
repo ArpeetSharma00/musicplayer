@@ -220,4 +220,67 @@ audioPlayer.addEventListener("loadeddata", () => {
     lyricsText.innerHTML = "<p>Loading lyrics...</p>";
 });
 
+const audioPlayer = document.getElementById("audioPlayer");
+const fileInput = document.getElementById("fileInput");
+const songList = document.getElementById("songList");
+
+// Load saved songs from local storage
+window.addEventListener("load", () => {
+    const savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+    savedSongs.forEach(song => addSongToList(song.name, song.url));
+});
+
+// Function to handle file uploads
+fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = function (e) {
+            const songData = { name: file.name, url: e.target.result };
+            
+            // Save to local storage
+            let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+            savedSongs.push(songData);
+            localStorage.setItem("songs", JSON.stringify(savedSongs));
+
+            addSongToList(songData.name, songData.url);
+        };
+    }
+});
+
+// Function to add songs to the list
+function addSongToList(name, url) {
+    const li = document.createElement("li");
+    li.textContent = name;
+    li.addEventListener("click", () => {
+        audioPlayer.src = url;
+        audioPlayer.play();
+    });
+
+    // Add Remove Button
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "❌";
+    removeBtn.style.marginLeft = "10px";
+    removeBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent song from playing when clicking remove
+        removeSong(name);
+        li.remove();
+    });
+
+    li.appendChild(removeBtn);
+    songList.appendChild(li);
+}
+
+// Function to remove song from local storage
+function removeSong(songName) {
+    let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+    savedSongs = savedSongs.filter(song => song.name !== songName);
+    localStorage.setItem("songs", JSON.stringify(savedSongs));
+}
+
+// Clear all saved songs when needed (optional)
+function clearAllSongs() {
+    localStorage.removeItem("songs
 
