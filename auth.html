@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | EchoAltar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login as Admin</h2>
+        <input type="password" id="passwordInput" placeholder="Enter Admin Password">
+        <button onclick="checkLogin()">Login</button>
+        <p id="errorMessage" style="color: red;"></p>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "your_secure_password") { // Change this password
+                localStorage.setItem("isAdmin", "true");
+                window.location.href = "index.html"; // Redirect to main website
+            } else {
+                document.getElementById("errorMessage").textContent = "Incorrect password!";
+            }
+        }
+
+        // If already logged in, go to the main website
+        if (localStorage.getItem("isAdmin") === "true") {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
