@@ -1,193 +1,136 @@
-const fileInput = document.getElementById("fileInput");
-const searchBar = document.getElementById("searchBar");
-const songList = document.getElementById("songList");
-const playerContainer = document.getElementById("playerContainer");
+// Select elements
 const audioPlayer = document.getElementById("audioPlayer");
-const albumArt = document.getElementById("albumArt");
-const playPauseBtn = document.getElementById("playPauseBtn");
-const removeSongBtn = document.getElementById("removeSongBtn");
-
-// Hidden file input for album art
-const albumInput = document.createElement("input");
-albumInput.type = "file";
-albumInput.accept = "image/*";
-albumInput.style.display = "none";
-document.body.appendChild(albumInput);
-
-let songs = JSON.parse(localStorage.getItem("songs")) || [];
-let currentSongIndex = 0;
-
-// Load saved songs
-function loadSongs() {
-    songList.innerHTML = "";
-    songs.forEach((song, index) => {
-        let songItem = document.createElement("div");
-        songItem.classList.add("songItem");
-        songItem.textContent = song.name;
-        songItem.addEventListener("click", () => playSong(index));
-        songList.appendChild(songItem);
-    });
-}
-
-// Upload audio files
-fileInput.addEventListener("change", async (event) => {
-    const files = event.target.files;
-    for (let file of files) {
-        const base64Audio = await convertToBase64(file);
-        songs.push({ name: file.name, url: base64Audio, album: "default-album.jpg" });
-    }
-    updateLocalStorage();
-    loadSongs();
-});
-
-// Convert file to Base64
-function convertToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
-
-// Click album art to upload
-albumArt.addEventListener("click", () => {
-    if (songs.length > 0) {
-        albumInput.click();
-    }
-});
-
-// Handle album art upload
-albumInput.addEventListener("change", async (event) => {
-    if (songs.length > 0) {
-        const file = event.target.files[0];
-        const base64Image = await convertToBase64(file);
-
-        // Assign to current song
-        songs[currentSongIndex].album = base64Image;
-        updateLocalStorage();
-        albumArt.src = base64Image;
-    }
-});
-
-// Save to local storage
-function updateLocalStorage() {
-    localStorage.setItem("songs", JSON.stringify(songs));
-}
-
-// Search functionality
-searchBar.addEventListener("input", () => {
-    let query = searchBar.value.toLowerCase();
-    let filteredSongs = songs.filter(song => song.name.toLowerCase().includes(query));
-    
-    songList.innerHTML = "";
-    filteredSongs.forEach((song, index) => {
-        let songItem = document.createElement("div");
-        songItem.classList.add("songItem");
-        songItem.textContent = song.name;
-        songItem.addEventListener("click", () => playSong(index));
-        songList.appendChild(songItem);
-    });
-});
-
-// Play selected song
-function playSong(index) {
-    currentSongIndex = index;
-    audioPlayer.src = songs[index].url;
-    albumArt.src = songs[index].album || "default-album.jpg";
-    playerContainer.classList.remove("hidden");
-    audioPlayer.play();
-    playPauseBtn.textContent = "⏸";
-    albumArt.classList.add("pulsing"); // Apply new pulse animation
-}
-
-// Remove song
-removeSongBtn.addEventListener("click", () => {
-    if (songs.length > 0) {
-        songs.splice(currentSongIndex, 1);
-        updateLocalStorage();
-        loadSongs();
-
-        if (songs.length > 0) {
-            currentSongIndex = Math.min(currentSongIndex, songs.length - 1);
-            playSong(currentSongIndex);
-        } else {
-            playerContainer.classList.add("hidden");
-            audioPlayer.src = "";
-            albumArt.classList.remove("spinning");
-        }
-    }
-});
-
-// Play/Pause button
-playPauseBtn.addEventListener("click", () => {
-    if (audioPlayer.paused) {
-        audioPlayer.play();
-        playPauseBtn.textContent = "⏸";
-        albumArt.classList.add("pulsing"); // Add pulse effect
-    } else {
-        audioPlayer.pause();
-        playPauseBtn.textContent = "▶";
-        albumArt.classList.remove("pulsing"); // Remove effect when paused
-    }
-});
-
-const progressBar = document.getElementById("progressBar");
-
-// Update progress bar as song plays
-audioPlayer.addEventListener("timeupdate", () => {
-    if (audioPlayer.duration) {
-        let progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-        progressBar.style.width = progress + "%";
-    }
-});
-
-
-// Load songs on page load
-window.onload = loadSongs;
-
+const fileInput = document.getElementById("fileInput");
+const songList = document.getElementById("songList");
+const albumArtContainer = document.getElementById("albumArtContainer");
+const albumArtImg = document.getElementById("albumArtImg");
 const lyricsText = document.getElementById("lyricsText");
 const fish = document.getElementById("fish");
+const progressBar = document.getElementById("progressBar");
 
-// Lyrics database for different songs
-const lyricsDatabase = {
-    "song1.mp3": [
-        { [0:00]
-Cuz you're my pretty
-Definition of beauty
-Pretty girl, you make everything feel alright
-Pretty girl, pretty
-[0:08]
-Has the stars in the sky about a ride
-The way where real live
-And heaven knows that it breaks my soul
-Oh you don't know you're beautiful
-[0:16]
-And I won't let it go
-Just to get a glimpse of your face
-And he travel quite a way
-Ninety million miles to see what I get to see every day
-[0:24]
-Hey darling, you're beautiful in every single way
-And there's nothing I change
-He my love stays the same
-Cuz you're my pretty
-[0:32]
-Definition of beauty },
-       
-    ],
-    "song2.mp3": [
-        { time: 0, text: "A gentle breeze whispers low," },
-        { time: 6, text: "Moonlight sparkles as we go..." },
-        { time: 12, text: "Sailing through the waves so free," },
-        { time: 18, text: "A song of love beneath the sea." }
-    ]
-};
+// Load saved songs and album art from localStorage
+window.addEventListener("load", () => {
+    const savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+    savedSongs.forEach(song => addSongToList(song.name, song.url, song.albumArt));
 
-// Function to sync lyrics with song playback
+    if (savedSongs.length > 0) {
+        audioPlayer.src = savedSongs[0].url;
+        updateAlbumArt(savedSongs[0].albumArt);
+    }
+});
+
+// Handle file upload for songs
+fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = function (e) {
+            const songData = { name: file.name, url: e.target.result, albumArt: "" };
+
+            let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+            savedSongs.push(songData);
+            localStorage.setItem("songs", JSON.stringify(savedSongs));
+
+            addSongToList(songData.name, songData.url, songData.albumArt);
+        };
+    }
+});
+
+// Add song to the list
+function addSongToList(name, url, albumArt) {
+    const li = document.createElement("li");
+    li.textContent = name;
+    li.addEventListener("click", () => {
+        audioPlayer.src = url;
+        audioPlayer.play();
+        updateAlbumArt(albumArt);
+    });
+
+    // Remove Button
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "❌";
+    removeBtn.style.marginLeft = "10px";
+    removeBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent playing when clicking remove
+        removeSong(name);
+        li.remove();
+    });
+
+    li.appendChild(removeBtn);
+    songList.appendChild(li);
+}
+
+// Remove song from local storage
+function removeSong(songName) {
+    let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+    savedSongs = savedSongs.filter(song => song.name !== songName);
+    localStorage.setItem("songs", JSON.stringify(savedSongs));
+}
+
+// Clear all songs
+function clearAllSongs() {
+    localStorage.removeItem("songs");
+    songList.innerHTML = "";
+    audioPlayer.src = "";
+    updateAlbumArt("");
+}
+
+// Click on album art container to upload a separate album art
+albumArtContainer.addEventListener("click", () => {
+    const albumInput = document.createElement("input");
+    albumInput.type = "file";
+    albumInput.accept = "image/*";
+    albumInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = function (e) {
+                updateAlbumArt(e.target.result);
+
+                // Save album art for the currently playing song
+                let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
+                savedSongs = savedSongs.map(song => 
+                    song.url === audioPlayer.src ? { ...song, albumArt: e.target.result } : song
+                );
+                localStorage.setItem("songs", JSON.stringify(savedSongs));
+            };
+        }
+    });
+    albumInput.click();
+});
+
+// Update album art display
+function updateAlbumArt(imageSrc) {
+    if (imageSrc) {
+        albumArtImg.src = imageSrc;
+    } else {
+        albumArtImg.src = "default_album.png"; // Use a default image
+    }
+}
+
+// Sync lyrics with song playback
 function updateLyrics() {
     const currentTime = audioPlayer.currentTime;
-    const songFileName = audioPlayer.src.split('/').pop(); // Extracts filename from URL
+    const songFileName = audioPlayer.src.split('/').pop();
+
+    const lyricsDatabase = {
+        "song1.mp3": [
+            { time: 0, text: "Here comes the ocean waves," },
+            { time: 5, text: "Flowing like a melody..." },
+            { time: 10, text: "Underneath the moonlit sky," },
+            { time: 15, text: "The tides are calling me." }
+        ],
+        "song2.mp3": [
+            { time: 0, text: "A gentle breeze whispers low," },
+            { time: 6, text: "Moonlight sparkles as we go..." },
+            { time: 12, text: "Sailing through the waves so free," },
+            { time: 18, text: "A song of love beneath the sea." }
+        ]
+    };
 
     if (!lyricsDatabase[songFileName]) {
         lyricsText.innerHTML = "<p>No lyrics available.</p>";
@@ -205,82 +148,24 @@ function updateLyrics() {
         }
     }
 
-    // Update lyrics display
     lyricsText.innerHTML = `<p>${currentLine}</p>`;
 
-    // Move the fish based on text length
+    // Move the fish across the lyrics
     fish.style.transform = `translateX(-50%) translateY(${Math.min(currentLine.length * -1, -10)}px)`;
 }
 
-// Update lyrics when song plays
-audioPlayer.addEventListener("timeupdate", updateLyrics);
-
-// Change lyrics when a new song is loaded
-audioPlayer.addEventListener("loadeddata", () => {
-    lyricsText.innerHTML = "<p>Loading lyrics...</p>";
+// Sync progress bar with ocean wave effect
+audioPlayer.addEventListener("timeupdate", () => {
+    const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    progressBar.style.backgroundPosition = `${percentage}% 50%`;
+    updateLyrics();
 });
 
-const audioPlayer = document.getElementById("audioPlayer");
-const fileInput = document.getElementById("fileInput");
-const songList = document.getElementById("songList");
-
-// Load saved songs from local storage
-window.addEventListener("load", () => {
-    const savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
-    savedSongs.forEach(song => addSongToList(song.name, song.url));
-});
-
-// Function to handle file uploads
-fileInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = function (e) {
-            const songData = { name: file.name, url: e.target.result };
-            
-            // Save to local storage
-            let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
-            savedSongs.push(songData);
-            localStorage.setItem("songs", JSON.stringify(savedSongs));
-
-            addSongToList(songData.name, songData.url);
-        };
+// Play and pause button
+document.getElementById("playPauseBtn").addEventListener("click", () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+    } else {
+        audioPlayer.pause();
     }
 });
-
-// Function to add songs to the list
-function addSongToList(name, url) {
-    const li = document.createElement("li");
-    li.textContent = name;
-    li.addEventListener("click", () => {
-        audioPlayer.src = url;
-        audioPlayer.play();
-    });
-
-    // Add Remove Button
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "❌";
-    removeBtn.style.marginLeft = "10px";
-    removeBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent song from playing when clicking remove
-        removeSong(name);
-        li.remove();
-    });
-
-    li.appendChild(removeBtn);
-    songList.appendChild(li);
-}
-
-// Function to remove song from local storage
-function removeSong(songName) {
-    let savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
-    savedSongs = savedSongs.filter(song => song.name !== songName);
-    localStorage.setItem("songs", JSON.stringify(savedSongs));
-}
-
-// Clear all saved songs when needed (optional)
-function clearAllSongs() {
-    localStorage.removeItem("songs
-
