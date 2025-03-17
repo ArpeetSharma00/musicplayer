@@ -84,3 +84,69 @@ fileInput.addEventListener("change", function (event) {
         loadSong(currentSong);
     }
 });
+
+let songs = JSON.parse(localStorage.getItem("savedSongs")) || [];
+let currentSong = 0;
+let isPlaying = false;
+let isShuffle = false;
+let isRepeat = false;
+
+function loadSong(index) {
+    if (songs.length === 0) return;
+    songTitle.textContent = songs[index].title;
+    audio.src = songs[index].src;
+    albumArt.src = songs[index].image || "default-cover.jpg";
+}
+function playPause() {
+    if (isPlaying) {
+        audio.pause();
+        playPauseBtn.innerHTML = "&#9654;";
+    } else {
+        audio.play();
+        playPauseBtn.innerHTML = "&#10074;&#10074;";
+    }
+    isPlaying = !isPlaying;
+}
+function nextSong() {
+    currentSong = isShuffle ? Math.floor(Math.random() * songs.length) : (currentSong + 1) % songs.length;
+    loadSong(currentSong);
+    audio.play();
+}
+function prevSong() {
+    currentSong = (currentSong - 1 + songs.length) % songs.length;
+    loadSong(currentSong);
+    audio.play();
+}
+function toggleShuffle() {
+    isShuffle = !isShuffle;
+    shuffleBtn.style.background = isShuffle ? "lightgreen" : "white";
+}
+function toggleRepeat() {
+    isRepeat = !isRepeat;
+    repeatBtn.style.background = isRepeat ? "lightgreen" : "white";
+}
+audio.onended = () => (isRepeat ? audio.play() : nextSong());
+
+fileInput.addEventListener("change", function (event) {
+    const files = event.target.files;
+    if (files.length > 0) {
+        for (let file of files) {
+            const songData = {
+                title: file.name,
+                src: URL.createObjectURL(file),
+                image: "default-cover.jpg",
+            };
+            songs.push(songData);
+        }
+        localStorage.setItem("savedSongs", JSON.stringify(songs));
+        loadSong(currentSong);
+    }
+});
+
+playPauseBtn.addEventListener("click", playPause);
+nextBtn.addEventListener("click", nextSong);
+prevBtn.addEventListener("click", prevSong);
+shuffleBtn.addEventListener("click", toggleShuffle);
+repeatBtn.addEventListener("click", toggleRepeat);
+
+loadSong(currentSong);
