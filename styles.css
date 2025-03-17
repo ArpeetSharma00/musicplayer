@@ -147,3 +147,43 @@ ul li:hover {
     font-size: 20px;
     cursor: pointer;
 }
+
+/* 🔹 Admin Login Page Styling */
+.login-container {
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+/* 🔹 Style Input and Button */
+.login-container input, .login-container button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 🔹 Input Field */
+.login-container input {
+    background: #333;
+    color: white;
+}
+
+/* 🔹 Login Button */
+.login-container button {
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background: #45a049;
+}
+
