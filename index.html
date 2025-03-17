@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="music-player">
+        <header>
+            <h1>Nature Music</h1>
+            <input type="text" id="search-bar" placeholder="Search for a song...">
+        </header>
+
+        <div id="playlist">
+            <h2>Your Playlist</h2>
+            <ul id="playlist-items"></ul>
+        </div>
+
+        <div id="player">
+            <audio id="audio-player" controls></audio>
+        </div>
+
+        <div id="login-section">
+            <button id="google-login">Login with Google</button>
+            <button id="facebook-login">Login with Facebook</button>
+            <button id="phone-login">Login with Phone</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
