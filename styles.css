@@ -1,64 +1,69 @@
 body {
     font-family: Arial, sans-serif;
-    background: url('https://i.postimg.cc/8zTHByzs/aerial-beautiful-shot-seashore-with-hills-background-sunset.jpg') no-repeat center center/cover;
+    margin: 0;
+    padding: 0;
     text-align: center;
+    background: url('https://i.postimg.cc/8zTHByzs/aerial-beautiful-shot-seashore-with-hills-background-sunset.jpg') no-repeat center center/cover;
     color: white;
+}
+
+header {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
 }
 
 #searchBar {
-    width: 50%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#playerContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-#albumArtContainer {
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-}
-
-#albumArtContainer:hover {
-    transform: scale(1.1);
-}
-
-#albumArtImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#progressBar {
-    width: 80%;
-    height: 10px;
     margin-top: 10px;
-}
-
-#lyricsContainer {
-    position: relative;
-    width: 100%;
+    padding: 10px;
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+    font-size: 1em;
     text-align: center;
-    margin-top: 20px;
-}
-#lyricsText {
-    position: relative;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    display: inline-block;
 }
 
-#leaf {
-    position: absolute;
-    width: 30px;
-    transition: transform 0.5s ease-in-out;
+.trending, .playlists {
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    width: 80%;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.playlist-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.playlist {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.playlist:hover {
+    background: rgba(255, 255, 255, 0.4);
 }
