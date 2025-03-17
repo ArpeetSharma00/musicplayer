@@ -11,6 +11,12 @@ const removeSongBtn = document.getElementById("removeSongBtn");
 let songs = JSON.parse(localStorage.getItem("songs")) || [];
 let currentSongIndex = 0;
 
+// Set up album input (hidden)
+albumInput.type = "file";
+albumInput.accept = "image/*";
+albumInput.style.display = "none";
+document.body.appendChild(albumInput);
+
 // Load stored songs
 function loadSongs() {
     songList.innerHTML = "";
@@ -57,19 +63,27 @@ function convertToBase64(file) {
     });
 }
 
-// Handle album art upload for specific song
+// Click album art to upload an image
+albumArt.addEventListener("click", () => {
+    if (songs.length > 0) {
+        albumInput.click(); // Open file input
+    }
+});
+
+// Handle album art upload
 albumInput.addEventListener("change", (event) => {
     if (songs.length > 0) {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onload = function (e) {
             songs[currentSongIndex].album = e.target.result;
+            updateLocalStorage();
             albumArt.src = e.target.result;
-            localStorage.setItem("songs", JSON.stringify(songs));
         };
         reader.readAsDataURL(file);
     }
 });
+
 
 // Ensure local storage is updated with the latest songs data
 function updateLocalStorage() {
