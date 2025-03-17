@@ -1,5 +1,5 @@
 const songs = [
-    { title: "Hero - Charlie Puth", src: "music/Hero - Charlie Puth.mp3", image: "bird.jpg" },
+    { title: "Hero - Charlie Puth", src: "music/songs/Hero - Charlie Puth.mp3", image: "bird.jpg" },
     { title: "Rainforest", src: "rainforest.mp3", image: "rain.jpg" },
     { title: "Ocean Waves", src: "ocean.mp3", image: "ocean.jpg" }
 ];
