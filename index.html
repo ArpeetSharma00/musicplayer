@@ -8,61 +8,30 @@
 </head>
 <body>
     <header>
-        <h1>EchoAltar - Where Sound Is Honored Like A Sacred Ritual</h1>
-        <input type="text" id="searchBar" placeholder="Search for a song...">
+        <h1>EchoAltar 🎶</h1>
+        <input type="text" id="searchBar" placeholder="Search songs...">
     </header>
 
-    <main>
-        <section class="trending">
-           <!-- Upload Button (Hidden for Regular Users) -->
-<input type="file" id="songUpload" accept="audio/*" style="display: none;">
-<button id="uploadBtn" onclick="document.getElementById('songUpload').click()" style="display: none;">Upload Song</button>
+    <button onclick="logout()">Logout</button>
 
-            <h2>Trending Songs</h2>
-            <ul id="trendingList">
-                <li onclick="openPlayer('Whispering Winds', 'whispering.jpg', 'song1.mp3')">🌿 Whispering Winds - Nature Beats</li>
-                <li onclick="openPlayer('Ocean\'s Lullaby', 'ocean.jpg', 'song2.mp3')">🌊 Ocean's Lullaby - Serenity Sounds</li>
-                <li onclick="openPlayer('Campfire Echoes', 'campfire.jpg', 'song3.mp3')">🔥 Campfire Echoes - Wild Harmony</li>
-                <li onclick="openPlayer('Sunrise Melody', 'sunrise.jpg', 'song4.mp3')">🌄 Sunrise Melody - Zen Tones</li>
-            </ul>
-        </section>
+    <input type="file" id="songUpload" accept="audio/*" style="display: none;">
+    <button id="uploadBtn" onclick="document.getElementById('songUpload').click()" style="display: none;">Upload Song</button>
 
-        <section class="playlists">
-            <h2>Top Playlists</h2>
-            <div class="playlist-container">
-                <div class="playlist">🌲 Forest Calm</div>
-                <div class="playlist">🌅 Sunset Vibes</div>
-                <div class="playlist">🌧️ Rainy Day Chill</div>
-                <div class="playlist">🏔️ Mountain Echoes</div>
-            </div>
-        </section>
-    </main>
+    <h2>Trending Songs</h2>
+    <ul id="trendingList"></ul>
 
-  <!-- Music Player -->
-<div id="musicPlayer" class="player-fullscreen">
-    <div class="player-content">
-        <span class="close-btn" onclick="minimizePlayer()">➖</span>
-        <img id="albumArt" src="default.jpg" alt="Album Art">
+    <h2>Top Playlists</h2>
+    <ul id="playlistList"></ul>
+
+    <div id="musicPlayer" class="hidden">
+        <button id="closePlayer">X</button>
+        <img id="albumArt" src="" alt="Album Art">
         <h3 id="songTitle">Now Playing</h3>
         <audio id="audioPlayer" controls>
             <source id="audioSource" src="" type="audio/mp3">
         </audio>
-        <input type="range" id="progressBar" value="0" max="100">
-
-        <!-- Controls on the right -->
-        <div class="controls">
-            <button id="repeatBtn">🔁</button>
-            <button id="likeBtn">❤️</button>
-        </div>
-    </div>
-</div>
-
-
-    <!-- Minimized Music Player -->
-    <div id="minimizedPlayer" class="player-minimized" onclick="maximizePlayer()">
-        <img id="miniAlbumArt" src="default.jpg" alt="Album Art">
-        <span id="miniSongTitle">Now Playing</span>
-        <button id="miniPausePlay">⏸️</button>
+        <button id="likeBtn">❤️</button>
+        <button id="repeatBtn">🔁</button>
     </div>
 
     <script src="script.js"></script>
