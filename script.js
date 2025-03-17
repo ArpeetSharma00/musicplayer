@@ -35,7 +35,7 @@ searchBar.addEventListener("keyup", function() {
 
 // Sample Playlist
 const playlist = [
-    { title: "Birds Chirping", src: "birds.mp3" },
+    { title: "Hero - Charlie Puth", src: "C:\Users\SSD\Music\music\Hero - Charlie Puth.mp3" },
     { title: "Rainforest Sounds", src: "rainforest.mp3" },
     { title: "Ocean Waves", src: "ocean.mp3" }
 ];
