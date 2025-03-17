@@ -98,7 +98,7 @@ function playSong(index) {
     playerContainer.classList.remove("hidden");
     audioPlayer.play();
     playPauseBtn.textContent = "⏸";
-    albumArt.classList.add("spinning");
+    albumArt.classList.add("pulsing"); // Apply new pulse animation
 }
 
 // Remove song
@@ -124,11 +124,11 @@ playPauseBtn.addEventListener("click", () => {
     if (audioPlayer.paused) {
         audioPlayer.play();
         playPauseBtn.textContent = "⏸";
-        albumArt.classList.add("spinning");
+        albumArt.classList.add("pulsing"); // Add pulse effect
     } else {
         audioPlayer.pause();
         playPauseBtn.textContent = "▶";
-        albumArt.classList.remove("spinning");
+        albumArt.classList.remove("pulsing"); // Remove effect when paused
     }
 });
 
