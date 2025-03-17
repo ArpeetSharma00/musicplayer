@@ -20,16 +20,19 @@
         <img id="album-art" src="forest.jpg" alt="Album Art">
         <h3 id="song-title">Song Name</h3>
         <audio id="audio-player" src=""></audio>
-        <div class="controls">
-            <button id="prev"><span>&#9665;</span></button>
-            <button id="play-pause"><span>&#9654;</span></button>
-            <button id="next"><span>&#9655;</span></button>
-        </div>
-        <div class="extras">
-            <button id="shuffle">🔀</button>
-            <button id="repeat">🔁</button>
-        </div>
+         <div id="controls">
+        <button id="prev"><i class="fas fa-backward"></i></button>
+        <button id="play-pause"><i class="fas fa-play"></i></button>
+        <button id="next"><i class="fas fa-forward"></i></button>
     </div>
+
+    <div id="extra-controls">
+        <button id="shuffle"><i class="fas fa-random"></i></button>
+        <input type="range" id="progress-bar" value="0">
+        <button id="repeat"><i class="fas fa-sync-alt"></i></button>
+    </div>
+</div>
+
     <script src="script.js"></script>
 </body>
 </html>
