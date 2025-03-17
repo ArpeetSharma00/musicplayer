@@ -36,16 +36,23 @@ searchBar.addEventListener("keyup", function() {
 // Sample Playlist
 const playlist = [
     { title: "Birds Chirping", src: "birds.mp3" },
-    { title: "Rainforest Sounds", src: "rainforest.mp3" }
+    { title: "Rainforest Sounds", src: "rainforest.mp3" },
+    { title: "Ocean Waves", src: "ocean.mp3" }
 ];
 
 const playlistContainer = document.getElementById("playlist-items");
+const playerContainer = document.getElementById("player-container");
+const audioPlayer = document.getElementById("audio-player");
+const nowPlaying = document.getElementById("song-title");
+
 playlist.forEach(song => {
     let li = document.createElement("li");
     li.textContent = song.title;
     li.addEventListener("click", () => {
-        document.getElementById("audio-player").src = song.src;
-        document.getElementById("audio-player").play();
+        nowPlaying.textContent = song.title; // Update song title
+        audioPlayer.src = song.src; // Set song source
+        audioPlayer.play(); // Start playing
+        playerContainer.classList.remove("hidden"); // Show player
     });
     playlistContainer.appendChild(li);
 });
