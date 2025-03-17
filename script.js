@@ -149,20 +149,34 @@ window.onload = loadSongs;
 const lyricsText = document.getElementById("lyricsText");
 const fish = document.getElementById("fish");
 
-// Example lyrics with timestamps (time in seconds)
-const lyrics = [
-    { time: 0, text: "Here comes the ocean waves," },
-    { time: 5, text: "Flowing like a melody..." },
-    { time: 10, text: "Underneath the moonlit sky," },
-    { time: 15, text: "The tides are calling me." },
-    { time: 20, text: "A fish swims by, dancing free," },
-    { time: 25, text: "Following the song's harmony..." }
-];
+// Lyrics database for different songs
+const lyricsDatabase = {
+    "song1.mp3": [
+        { time: 0, text: "Here comes the ocean waves," },
+        { time: 5, text: "Flowing like a melody..." },
+        { time: 10, text: "Underneath the moonlit sky," },
+        { time: 15, text: "The tides are calling me." }
+    ],
+    "song2.mp3": [
+        { time: 0, text: "A gentle breeze whispers low," },
+        { time: 6, text: "Moonlight sparkles as we go..." },
+        { time: 12, text: "Sailing through the waves so free," },
+        { time: 18, text: "A song of love beneath the sea." }
+    ]
+};
 
-// Display lyrics and animate fish
+// Function to sync lyrics with song playback
 function updateLyrics() {
     const currentTime = audioPlayer.currentTime;
+    const songFileName = audioPlayer.src.split('/').pop(); // Extracts filename from URL
+
+    if (!lyricsDatabase[songFileName]) {
+        lyricsText.innerHTML = "<p>No lyrics available.</p>";
+        return;
+    }
+
     let currentLine = "";
+    let lyrics = lyricsDatabase[songFileName];
 
     for (let i = 0; i < lyrics.length; i++) {
         if (currentTime >= lyrics[i].time) {
@@ -179,6 +193,11 @@ function updateLyrics() {
     fish.style.transform = `translateX(${currentLine.length * 10}px)`;
 }
 
-// Sync lyrics with song time
+// Update lyrics when song plays
 audioPlayer.addEventListener("timeupdate", updateLyrics);
+
+// Change lyrics when a new song is loaded
+audioPlayer.addEventListener("loadeddata", () => {
+    lyricsText.innerHTML = "<p>Loading lyrics...</p>";
+});
 
