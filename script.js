@@ -70,3 +70,17 @@ shuffleBtn.addEventListener("click", toggleShuffle);
 repeatBtn.addEventListener("click", toggleRepeat);
 
 loadSong(currentSong);
+
+const fileInput = document.getElementById("fileInput");
+
+fileInput.addEventListener("change", function (event) {
+    const files = event.target.files;
+    if (files.length > 0) {
+        songs.length = 0; // Clear existing playlist
+        for (let file of files) {
+            songs.push({ title: file.name, src: URL.createObjectURL(file), image: "default-cover.jpg" });
+        }
+        currentSong = 0;
+        loadSong(currentSong);
+    }
+});
