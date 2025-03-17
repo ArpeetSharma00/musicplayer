@@ -32,3 +32,11 @@ button {
     margin: 5px;
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
+
+#player-container {
+    margin-top: 20px;
+}
