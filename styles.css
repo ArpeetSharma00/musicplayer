@@ -17,11 +17,14 @@ body {
 }
 
 #album-art {
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    display: block; /* Removes extra spacing */
+    margin: 20px auto; /* Centers the image */
+    max-width: 100%; /* Ensures it doesn't exceed container width */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 10px; /* Optional: Adds rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow */
 }
+
 
 .controls button {
     font-size: 20px;
