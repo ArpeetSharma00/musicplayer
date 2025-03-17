@@ -155,6 +155,7 @@ button:hover {
     max-height: 80%;
     overflow-y: auto;
     width: 80%;
+    font-weight: bold;
 }
 
 /* Fish Animation */
@@ -163,15 +164,7 @@ button:hover {
     position: absolute;
     bottom: 10px;
     left: 0;
-    animation: fishBounce 2s infinite ease-in-out;
 }
 
-/* Fish Bouncing Effect */
-@keyframes fishBounce {
-    0% { transform: translateX(0px) translateY(0px); }
-    25% { transform: translateX(50px) translateY(-10px); }
-    50% { transform: translateX(100px) translateY(0px); }
-    75% { transform: translateX(150px) translateY(-10px); }
-    100% { transform: translateX(200px) translateY(0px); }
-}
+
 
