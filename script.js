@@ -49,9 +49,11 @@ const playPauseBtn = document.getElementById("play-pause-btn");
 const progressBar = document.getElementById("progress-bar");
 const currentTimeEl = document.getElementById("current-time");
 const durationEl = document.getElementById("duration");
+const shuffleBtn = document.getElementById("shuffle-btn");
+const repeatBtn = document.getElementById("repeat-btn");
 
-
-
+let isShuffle = false;
+let isRepeat = false;
 let currentSongIndex = 0;
 
 // Function to Play Song
@@ -82,6 +84,42 @@ playPauseBtn.addEventListener("click", () => {
     } else {
         audioPlayer.pause();
         playPauseBtn.textContent = "▶️";
+    }
+});
+
+// Shuffle Button
+shuffleBtn.addEventListener("click", () => {
+    isShuffle = !isShuffle;
+    shuffleBtn.style.color = isShuffle ? "lightgreen" : "white";
+});
+
+// Repeat Button
+repeatBtn.addEventListener("click", () => {
+    isRepeat = !isRepeat;
+    repeatBtn.style.color = isRepeat ? "lightgreen" : "white";
+});
+
+// Next Song Function
+document.getElementById("next-btn").addEventListener("click", () => {
+    if (isShuffle) {
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * playlist.length);
+        } while (randomIndex === currentSongIndex);
+        playSong(randomIndex);
+    } else {
+        let nextIndex = (currentSongIndex + 1) % playlist.length;
+        playSong(nextIndex);
+    }
+});
+
+// Repeat Song
+audioPlayer.addEventListener("ended", () => {
+    if (isRepeat) {
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+    } else {
+        document.getElementById("next-btn").click();
     }
 });
 
