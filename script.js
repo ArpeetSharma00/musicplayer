@@ -145,3 +145,40 @@ audioPlayer.addEventListener("timeupdate", () => {
 
 // Load songs on page load
 window.onload = loadSongs;
+
+const lyricsText = document.getElementById("lyricsText");
+const fish = document.getElementById("fish");
+
+// Example lyrics with timestamps (time in seconds)
+const lyrics = [
+    { time: 0, text: "Here comes the ocean waves," },
+    { time: 5, text: "Flowing like a melody..." },
+    { time: 10, text: "Underneath the moonlit sky," },
+    { time: 15, text: "The tides are calling me." },
+    { time: 20, text: "A fish swims by, dancing free," },
+    { time: 25, text: "Following the song's harmony..." }
+];
+
+// Display lyrics and animate fish
+function updateLyrics() {
+    const currentTime = audioPlayer.currentTime;
+    let currentLine = "";
+
+    for (let i = 0; i < lyrics.length; i++) {
+        if (currentTime >= lyrics[i].time) {
+            currentLine = lyrics[i].text;
+        } else {
+            break;
+        }
+    }
+
+    // Update lyrics display
+    lyricsText.innerHTML = `<p>${currentLine}</p>`;
+
+    // Move the fish letter by letter
+    fish.style.transform = `translateX(${currentLine.length * 10}px)`;
+}
+
+// Sync lyrics with song time
+audioPlayer.addEventListener("timeupdate", updateLyrics);
+
