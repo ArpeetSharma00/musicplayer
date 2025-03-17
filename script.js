@@ -57,6 +57,24 @@ function playSong(index) {
     playPauseBtn.textContent = "⏸";
 }
 
+// Remove currently playing song
+removeSongBtn.addEventListener("click", () => {
+    if (songs.length > 0) {
+        songs.splice(currentSongIndex, 1); // Remove from array
+        localStorage.setItem("songs", JSON.stringify(songs)); // Update storage
+        loadSongs(); // Reload song list
+
+        if (songs.length > 0) {
+            currentSongIndex = Math.min(currentSongIndex, songs.length - 1); // Adjust index
+            playSong(currentSongIndex); // Play next song
+        } else {
+            playerContainer.classList.add("hidden"); // Hide player if empty
+            audioPlayer.src = "";
+        }
+    }
+});
+
+
 // Play/Pause functionality
 playPauseBtn.addEventListener("click", () => {
     if (audioPlayer.paused) {
