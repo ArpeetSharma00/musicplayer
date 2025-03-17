@@ -16,10 +16,10 @@
         <section class="trending">
             <h2>Trending Songs</h2>
             <ul id="trendingList">
-                <li>🌿 Whispering Winds - Nature Beats</li>
-                <li>🌊 Ocean's Lullaby - Serenity Sounds</li>
-                <li>🔥 Campfire Echoes - Wild Harmony</li>
-                <li>🌄 Sunrise Melody - Zen Tones</li>
+                <li onclick="openPlayer('Whispering Winds', 'whispering.jpg', 'song1.mp3')">🌿 Whispering Winds - Nature Beats</li>
+                <li onclick="openPlayer('Ocean\'s Lullaby', 'ocean.jpg', 'song2.mp3')">🌊 Ocean's Lullaby - Serenity Sounds</li>
+                <li onclick="openPlayer('Campfire Echoes', 'campfire.jpg', 'song3.mp3')">🔥 Campfire Echoes - Wild Harmony</li>
+                <li onclick="openPlayer('Sunrise Melody', 'sunrise.jpg', 'song4.mp3')">🌄 Sunrise Melody - Zen Tones</li>
             </ul>
         </section>
 
@@ -33,6 +33,23 @@
             </div>
         </section>
     </main>
+
+    <!-- Music Player Pop-up -->
+    <div id="musicPlayer" class="player-popup">
+        <div class="player-content">
+            <span class="close-btn" onclick="closePlayer()">✖</span>
+            <img id="albumArt" src="default.jpg" alt="Album Art">
+            <h3 id="songTitle">Now Playing</h3>
+            <audio id="audioPlayer" controls>
+                <source id="audioSource" src="" type="audio/mp3">
+            </audio>
+            <input type="range" id="progressBar" value="0" max="100">
+            <div class="controls">
+                <button id="repeatBtn">🔁</button>
+                <button id="likeBtn">❤️</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
