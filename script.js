@@ -1,10 +1,12 @@
 const fileInput = document.getElementById("fileInput");
+const albumInput = document.getElementById("albumInput");
 const searchBar = document.getElementById("searchBar");
 const songList = document.getElementById("songList");
 const playerContainer = document.getElementById("playerContainer");
 const audioPlayer = document.getElementById("audioPlayer");
 const albumArt = document.getElementById("albumArt");
 const playPauseBtn = document.getElementById("playPauseBtn");
+const removeSongBtn = document.getElementById("removeSongBtn");
 
 let songs = JSON.parse(localStorage.getItem("songs")) || [];
 let currentSongIndex = 0;
@@ -21,17 +23,39 @@ function loadSongs() {
     });
 }
 
-// Handle file uploads
-fileInput.addEventListener("change", (event) => {
-    const files = event.target.files;
-    Array.from(files).forEach(file => {
-        const url = URL.createObjectURL(file);
-        songs.push({ name: file.name, url: url });
+// Function to load songs on startup
+function loadSongs() {
+    songList.innerHTML = "";
+    songs.forEach((song, index) => {
+        let songItem = document.createElement("div");
+        songItem.classList.add("songItem");
+        songItem.textContent = song.name;
+        songItem.addEventListener("click", () => playSong(index));
+        songList.appendChild(songItem);
     });
+}
 
+
+// Handle audio file upload
+fileInput.addEventListener("change", async (event) => {
+    const files = event.target.files;
+    for (let file of files) {
+        const base64Audio = await convertToBase64(file);
+        songs.push({ name: file.name, url: base64Audio, album: "default-album.jpg" });
+    }
     localStorage.setItem("songs", JSON.stringify(songs));
     loadSongs();
 });
+
+// Convert audio file to Base64 for storage
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
 
 // Handle album art uploads
 albumInput.addEventListener("change", (event) => {
