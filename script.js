@@ -130,3 +130,46 @@ nextBtn.addEventListener("click", nextSong);
 prevBtn.addEventListener("click", prevSong);
 shuffleBtn.addEventListener("click", toggleShuffle);
 repeatBtn.addEventListener("click", toggleRepeat);
+
+fileInput.addEventListener("change", function (event) {
+    const files = event.target.files;
+    if (files.length > 0) {
+        for (let file of files) {
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = function (e) {
+                const blob = new Blob([e.target.result], { type: file.type });
+
+                // Read metadata using jsmediatags
+                jsmediatags.read(file, {
+                    onSuccess: function (tag) {
+                        let albumArt = "default-cover.jpg"; // Default cover if no image is found
+                        if (tag.tags.picture) {
+                            let picture = tag.tags.picture;
+                            let imageData = picture.data;
+                            let format = picture.format;
+                            let base64String = "";
+                            for (let i = 0; i < imageData.length; i++) {
+                                base64String += String.fromCharCode(imageData[i]);
+                            }
+                            albumArt = `data:${format};base64,${btoa(base64String)}`;
+                        }
+
+                        const songData = {
+                            title: file.name,
+                            src: blob, // Store file as a blob
+                            image: albumArt, // Extracted album art
+                        };
+
+                        songs.push(songData);
+                        saveSongToDB(songData);
+                        if (songs.length === 1) loadSong(0);
+                    },
+                    onError: function (error) {
+                        console.log("Error reading metadata: ", error);
+                    }
+                });
+            };
+        }
+    }
+});
