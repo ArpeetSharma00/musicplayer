@@ -7,44 +7,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Search Bar -->
-        <input type="text" id="searchBar" placeholder="Search songs...">
 
-        <!-- File Upload for Songs -->
-<input type="file" id="fileInput" accept="audio/*">
+    <!-- Search Bar -->
+    <input type="text" id="searchBar" placeholder="Search for a song...">
 
-<!-- List to Display Added Songs -->
-<ul id="songList"></ul>
+    <!-- File Upload for Songs -->
+    <input type="file" id="fileInput" accept="audio/*">
+    
+    <!-- List of Songs -->
+    <ul id="songList"></ul>
 
-<!-- Optional: Button to Clear All Songs -->
-<button onclick="clearAllSongs()">Clear All Songs</button>
-
-
-        <!-- Music Player -->
-        <div id="playerContainer" class="hidden">
-            <div id="albumContainer">
-                <img id="albumArt" src="default-album.jpg" alt="Album Art">
-            </div>
-            <audio id="audioPlayer"></audio>
-
-
-<!-- Ocean Wave Progress Bar -->
-    <div id="progressContainer">
-        <div id="progressBar"></div>
-    </div>
-            
-            <button id="playPauseBtn">▶</button>
-            <button id="removeSongBtn">🗑 Remove Song</button>
+    <!-- Music Player -->
+    <div id="playerContainer">
+        <div id="albumArtContainer">
+            <img id="albumArtImg" src="default_album.png" alt="Album Art">
         </div>
-        <div id="lyricsContainer">
-    <div id="lyricsBackground">
-        <div id="lyricsText"></div>
-        <img id="fish" src="https://i.postimg.cc/rm6JgWkn/beautiful-clownfish-undersea.jpg" alt="Fish">
+        <audio id="audioPlayer" controls></audio>
+        <div id="progressBar"></div>
+        <button id="playPauseBtn">▶</button>
     </div>
-</div>
 
+    <!-- Lyrics Display -->
+    <div id="lyricsContainer">
+        <img id="backgroundImage" src="ocean.jpg" alt="Ocean Background">
+        <div id="lyricsText">Lyrics will appear here...</div>
+        <img id="fish" src="fish.png" alt="Fish">
     </div>
+
+    <!-- Clear All Button -->
+    <button onclick="clearAllSongs()">Clear All Songs</button>
 
     <script src="script.js"></script>
 </body>
