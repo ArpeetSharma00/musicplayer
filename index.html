@@ -3,38 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nature Music Player</title>
+    <title>EchoAltar - Nature Music</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>EchoAltar</h1>
+        <input type="text" id="searchBar" placeholder="Search for a song...">
+    </header>
 
-    <!-- Search Bar -->
-    <input type="text" id="searchBar" placeholder="Search for a song...">
+    <main>
+        <section class="trending">
+            <h2>Trending Songs</h2>
+            <ul id="trendingList">
+                <li>🌿 Whispering Winds - Nature Beats</li>
+                <li>🌊 Ocean's Lullaby - Serenity Sounds</li>
+                <li>🔥 Campfire Echoes - Wild Harmony</li>
+                <li>🌄 Sunrise Melody - Zen Tones</li>
+            </ul>
+        </section>
 
-    <!-- File Upload for Songs -->
-    <input type="file" id="fileInput" accept="audio/*">
-    
-    <!-- List of Songs -->
-    <ul id="songList"></ul>
-
-    <!-- Music Player -->
-    <div id="playerContainer">
-        <div id="albumArtContainer">
-            <img id="albumArtImg" src="default_album.png" alt="Album Art">
-        </div>
-        <audio id="audioPlayer"></audio>
-        <div id="progressBar"></div>
-        <button id="playPauseBtn">▶</button>
-    </div>
-
-    <!-- Lyrics Display -->
-    <div id="lyricsContainer">
-        <div id="lyricsText">Lyrics will appear here...</div>
-        <img id="leaf" src="leaf.png" alt="Leaf">
-    </div>
-
-    <!-- Clear All Button -->
-    <button onclick="clearAllSongs()">Clear All Songs</button>
+        <section class="playlists">
+            <h2>Top Playlists</h2>
+            <div class="playlist-container">
+                <div class="playlist">🌲 Forest Calm</div>
+                <div class="playlist">🌅 Sunset Vibes</div>
+                <div class="playlist">🌧️ Rainy Day Chill</div>
+                <div class="playlist">🏔️ Mountain Echoes</div>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
