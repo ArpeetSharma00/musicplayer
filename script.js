@@ -44,15 +44,63 @@ const playlistContainer = document.getElementById("playlist-items");
 const playerContainer = document.getElementById("player-container");
 const audioPlayer = document.getElementById("audio-player");
 const nowPlaying = document.getElementById("song-title");
+const albumArt = document.getElementById("album-art");
+const playPauseBtn = document.getElementById("play-pause-btn");
+const progressBar = document.getElementById("progress-bar");
+const currentTimeEl = document.getElementById("current-time");
+const durationEl = document.getElementById("duration");
 
-playlist.forEach(song => {
+
+
+let currentSongIndex = 0;
+
+// Function to Play Song
+function playSong(index) {
+    let song = playlist[index];
+    nowPlaying.textContent = song.title;
+    audioPlayer.src = song.src;
+    albumArt.src = song.album;
+    audioPlayer.play();
+    playerContainer.classList.remove("hidden");
+    playPauseBtn.textContent = "⏸️"; // Change button to pause
+    currentSongIndex = index;
+}
+
+// Add Songs to Playlist
+playlist.forEach((song, index) => {
     let li = document.createElement("li");
     li.textContent = song.title;
-    li.addEventListener("click", () => {
-        nowPlaying.textContent = song.title; // Update song title
-        audioPlayer.src = song.src; // Set song source
-        audioPlayer.play(); // Start playing
-        playerContainer.classList.remove("hidden"); // Show player
-    });
+    li.addEventListener("click", () => playSong(index));
     playlistContainer.appendChild(li);
 });
+
+// Play/Pause Button
+playPauseBtn.addEventListener("click", () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseBtn.textContent = "⏸️";
+    } else {
+        audioPlayer.pause();
+        playPauseBtn.textContent = "▶️";
+    }
+});
+
+// Update Progress Bar
+audioPlayer.addEventListener("timeupdate", () => {
+    let progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    progressBar.value = progress;
+    currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+    durationEl.textContent = formatTime(audioPlayer.duration);
+});
+
+// Seek Feature
+progressBar.addEventListener("input", () => {
+    audioPlayer.currentTime = (progressBar.value / 100) * audioPlayer.duration;
+});
+
+// Format Time
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
