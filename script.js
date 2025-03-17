@@ -52,3 +52,39 @@ document.getElementById("miniPausePlay").addEventListener("click", function() {
         this.textContent = "▶️";
     }
 });
+
+// Check if the user is you (Replace 'yourUsername' with your actual identifier)
+const isUser = true;  // Change this logic based on authentication
+
+// Show upload button only for you
+if (isUser) {
+    document.getElementById("uploadBtn").style.display = "block";
+}
+
+// Handle song upload
+document.getElementById("songUpload").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const objectURL = URL.createObjectURL(file);
+        addSongToList(file.name, objectURL);
+    }
+});
+
+// Add uploaded song to the list
+function addSongToList(title, songURL) {
+    let songList = document.getElementById("trendingList");
+    let newSong = document.createElement("li");
+    newSong.textContent = "🎵 " + title;
+    newSong.onclick = function () {
+        openPlayer(title, "default.jpg", songURL);
+    };
+    songList.appendChild(newSong);
+}
+
+// Open the music player with the uploaded song
+function openPlayer(title, albumArt, songFile) {
+    document.getElementById("audioSource").src = songFile;
+    document.getElementById("audioPlayer").load();
+    document.getElementById("audioPlayer").play();
+}
+
