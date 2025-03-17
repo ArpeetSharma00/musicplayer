@@ -187,3 +187,21 @@ document.getElementById("imageInput").addEventListener("change", function (event
     }
 });
 
+// Repeat Toggle
+repeatBtn.addEventListener("click", () => {
+    isRepeat = !isRepeat;
+    repeatBtn.classList.toggle("active");
+});
+
+// Progress Bar Update
+audio.addEventListener("timeupdate", () => {
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.value = progress;
+});
+
+// Seek Song
+progressBar.addEventListener("input", (e) => {
+    const seekTime = (progressBar.value / 100) * audio.duration;
+    audio.currentTime = seekTime;
+});
+
