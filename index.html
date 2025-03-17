@@ -34,22 +34,25 @@
         </section>
     </main>
 
-    <!-- Music Player -->
-    <div id="musicPlayer" class="player-fullscreen">
-        <div class="player-content">
-            <span class="close-btn" onclick="minimizePlayer()">➖</span>
-            <img id="albumArt" src="default.jpg" alt="Album Art">
-            <h3 id="songTitle">Now Playing</h3>
-            <audio id="audioPlayer" controls>
-                <source id="audioSource" src="" type="audio/mp3">
-            </audio>
-            <input type="range" id="progressBar" value="0" max="100">
-            <div class="controls">
-                <button id="repeatBtn">🔁</button>
-                <button id="likeBtn">❤️</button>
-            </div>
+  <!-- Music Player -->
+<div id="musicPlayer" class="player-fullscreen">
+    <div class="player-content">
+        <span class="close-btn" onclick="minimizePlayer()">➖</span>
+        <img id="albumArt" src="default.jpg" alt="Album Art">
+        <h3 id="songTitle">Now Playing</h3>
+        <audio id="audioPlayer" controls>
+            <source id="audioSource" src="" type="audio/mp3">
+        </audio>
+        <input type="range" id="progressBar" value="0" max="100">
+
+        <!-- Controls on the right -->
+        <div class="controls">
+            <button id="repeatBtn">🔁</button>
+            <button id="likeBtn">❤️</button>
         </div>
     </div>
+</div>
+
 
     <!-- Minimized Music Player -->
     <div id="minimizedPlayer" class="player-minimized" onclick="maximizePlayer()">
