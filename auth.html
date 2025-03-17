@@ -7,21 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login as Admin</h2>
-        <input type="password" id="passwordInput" placeholder="Enter Admin Password">
+    <div class="auth-container">
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" placeholder="Enter Username">
+        <input type="password" id="loginPassword" placeholder="Enter Password">
         <button onclick="checkLogin()">Login</button>
-        <p id="errorMessage" style="color: red;"></p>
+        <p id="loginMessage"></p>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </div>
 
     <script>
         function checkLogin() {
-            const password = document.getElementById("passwordInput").value;
-            if (password === "your_secure_password") { // Change this password
+            const enteredUsername = document.getElementById("loginUsername").value;
+            const enteredPassword = document.getElementById("loginPassword").value;
+
+            const storedUsername = localStorage.getItem("adminUsername");
+            const storedPassword = localStorage.getItem("adminPassword");
+
+            if (enteredUsername === storedUsername && enteredPassword === storedPassword) {
                 localStorage.setItem("isAdmin", "true");
                 window.location.href = "index.html"; // Redirect to main website
             } else {
-                document.getElementById("errorMessage").textContent = "Incorrect password!";
+                document.getElementById("loginMessage").textContent = "Incorrect username or password!";
             }
         }
 
