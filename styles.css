@@ -131,3 +131,47 @@ button:hover {
     }
 }
 
+/* Lyrics Container */
+#lyricsContainer {
+    width: 40%;
+    height: 250px;
+    background: url("https://i.postimg.cc/HLFphvJ0/beautiful-sea-life-with-aquatic-animal.jpg") no-repeat center center/cover;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Lyrics Text */
+#lyricsText {
+    text-align: center;
+    line-height: 1.5;
+    max-height: 80%;
+    overflow-y: auto;
+    width: 80%;
+}
+
+/* Fish Animation */
+#fish {
+    width: 50px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    animation: fishBounce 2s infinite ease-in-out;
+}
+
+/* Fish Bouncing Effect */
+@keyframes fishBounce {
+    0% { transform: translateX(0px) translateY(0px); }
+    25% { transform: translateX(50px) translateY(-10px); }
+    50% { transform: translateX(100px) translateY(0px); }
+    75% { transform: translateX(150px) translateY(-10px); }
+    100% { transform: translateX(200px) translateY(0px); }
+}
+
