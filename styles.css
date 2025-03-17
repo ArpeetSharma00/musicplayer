@@ -1,53 +1,99 @@
 body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('https://i.postimg.cc/8zTHByzs/aerial-beautiful-shot-seashore-with-hills-background-sunset.jpg') no-repeat center center/cover;
     font-family: Arial, sans-serif;
+    color: white;
 }
 
-#music-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+#player-container {
     text-align: center;
-    width: 90%;
-    max-width: 400px;
-    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.1);
     padding: 20px;
-    background: white;
     border-radius: 15px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    width: 350px;
 }
-
 
 #album-art {
-    display: block; /* Removes extra spacing */
-    margin: 20px auto; /* Centers the image */
-    max-width: 100%; /* Ensures it doesn't exceed container width */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 10px; /* Optional: Adds rounded corners */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow */
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
 }
 
-
-.controls button {
-    font-size: 20px;
-    margin: 10px;
-    padding: 10px;
-    border: none;
-    background: white;
-    cursor: pointer;
-    border-radius: 50%;
+#album-art:hover {
+    transform: scale(1.1);
 }
 
-.extras button {
+#song-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#controls, #extra-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     margin-top: 10px;
-    padding: 8px;
+}
+
+button {
+    background: transparent;
     border: none;
-    background: white;
+    color: white;
+    font-size: 24px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.2);
+    color: #ffcc00;
+}
+
+#play-pause {
+    font-size: 30px;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+#shuffle, #repeat {
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+#shuffle.active, #repeat.active {
+    color: #ffcc00;
+}
+
+#progress-bar {
+    width: 80%;
+    appearance: none;
+    height: 5px;
+    background: white;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+#progress-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ffcc00;
+    border-radius: 50%;
+    cursor: pointer;
 }
