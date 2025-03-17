@@ -55,37 +55,18 @@ ul li:hover {
     color: #ffcc00;
 }
 
-.playlist-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.playlist {
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.playlist:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-/* Music Player Pop-up */
-.player-popup {
+/* Fullscreen Music Player */
+.player-fullscreen {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
     text-align: center;
-    width: 300px;
+    padding-top: 50px;
 }
 
 .player-content {
@@ -94,20 +75,20 @@ ul li:hover {
 
 .close-btn {
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 10px;
+    right: 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 #albumArt {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 10px;
 }
 
 #progressBar {
-    width: 100%;
+    width: 80%;
     margin: 10px 0;
 }
 
@@ -119,6 +100,36 @@ ul li:hover {
 
 .controls button {
     background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Minimized Music Player */
+.player-minimized {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    cursor: pointer;
+}
+
+.player-minimized img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.player-minimized button {
+    background: none;
     border: none;
     color: white;
     font-size: 20px;
