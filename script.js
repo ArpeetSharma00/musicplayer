@@ -57,7 +57,7 @@ function convertToBase64(file) {
     });
 }
 
-// Handle album art uploads
+// Handle album art upload for specific song
 albumInput.addEventListener("change", (event) => {
     if (songs.length > 0) {
         const file = event.target.files[0];
