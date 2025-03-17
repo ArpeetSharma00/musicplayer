@@ -5,192 +5,62 @@ body {
     color: white;
 }
 
-.container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-}
-
 #searchBar {
-    width: 90%;
+    width: 50%;
     padding: 10px;
     margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-#fileInput {
-    display: block;
-    margin: 10px auto;
-}
-
-#songList {
-    margin: 20px 0;
-    text-align: left;
-}
-
-.songItem {
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 5px 0;
-    cursor: pointer;
-    border-radius: 5px;
 }
 
 #playerContainer {
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
-.hidden {
-    display: none;
-}
-
-#albumContainer {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+#albumArtContainer {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
-#albumArt {
+#albumArtContainer:hover {
+    transform: scale(1.1);
+}
+
+#albumArtImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s, opacity 0.3s;
 }
 
-/* New pulse animation when playing */
-.pulsing {
-    animation: pulse 1.5s infinite alternate ease-in-out;
-}
-
-@keyframes pulse {
-    from {
-        transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: scale(1.05);
-        opacity: 0.8;
-    }
-}
-
-
-button {
-    margin: 5px;
-    padding: 10px;
-    background: green;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: darkgreen;
-}
-
-/* Progress Bar Container */
-#progressContainer {
-    width: 100%;
-    height: 10px;
-    background: #2a9d8f;
-    border-radius: 5px;
-    overflow: hidden;
-    position: relative;
-    margin-top: 10px;
-}
-
-/* Progress Bar with Wave Effect */
 #progressBar {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, #0077b6, #00b4d8, #90e0ef);
-    position: absolute;
-    border-radius: 5px;
-    animation: wave 2s infinite linear;
-}
-
-/* Wave Animation */
-@keyframes wave {
-    0% {
-        transform: translateX(-10px) scaleY(1);
-    }
-    50% {
-        transform: translateX(10px) scaleY(1.2);
-    }
-    100% {
-        transform: translateX(-10px) scaleY(1);
-    }
-}
-
-/* Center the lyrics container and prevent overflow */
-#lyricsContainer {
-    width: 100%;
-    max-width: 600px;
-    height: 250px;
-    background: url("https://i.postimg.cc/HLFphvJ0/beautiful-sea-life-with-aquatic-animal.jpg") no-repeat center center;
-    background-size: cover; /* Ensures the image fits inside */
-    border-radius: 10px;
-    padding: 20px;
-    color: white;
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 20px auto; /* Centers it */
-    overflow: hidden; /* Prevents background overflow */
-    box-sizing: border-box; /* Ensures padding is included in width */
-}
-
-#backgroundImage {
     width: 80%;
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -1; /* Keeps the image behind everything */
+    height: 10px;
+    margin-top: 10px;
+    background: url("wave.png") repeat-x;
+    background-size: contain;
 }
 
-/* Ensure lyrics text stays inside */
-#lyricsText {
+#lyricsContainer {
+    position: relative;
+    width: 100%;
     text-align: center;
-    line-height: 1.5;
-    max-height: 80%;
-    overflow-y: auto;
-    width: 90%;
+    margin-top: 20px;
+}
+#lyricsText {
+    position: relative;
+    font-size: 20px;
+    color: white;
     font-weight: bold;
-    word-wrap: break-word; /* Prevents text from overflowing */
+    display: inline-block;
 }
 
-
-
-/* Center and animate the fish */
-#fish {
-    width: 50px;
+#leaf {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: fishBounce 2s infinite ease-in-out;
+    width: 30px;
+    transition: transform 0.5s ease-in-out;
 }
-
-/* Fish animation */
-@keyframes fishBounce {
-    0% { transform: translateX(-50%) translateY(0px); }
-    50% { transform: translateX(-50%) translateY(-10px); }
-    100% { transform: translateX(-50%) translateY(0px); }
-}
-
-
