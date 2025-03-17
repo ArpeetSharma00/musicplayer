@@ -131,12 +131,13 @@ button:hover {
     }
 }
 
-/* Lyrics Container */
+/* Center the lyrics container and prevent overflow */
 #lyricsContainer {
     width: 100%;
     max-width: 600px;
     height: 250px;
-    background: url("https://i.postimg.cc/HLFphvJ0/beautiful-sea-life-with-aquatic-animal.jpg") no-repeat center center/cover;
+    background: url("ocean.jpg") no-repeat center center;
+    background-size: cover; /* Ensures the image fits inside */
     border-radius: 10px;
     padding: 20px;
     color: white;
@@ -147,17 +148,20 @@ button:hover {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 20px auto; /* Centers it below the player */
+    margin: 20px auto; /* Centers it */
+    overflow: hidden; /* Prevents background overflow */
+    box-sizing: border-box; /* Ensures padding is included in width */
 }
 
-/* Lyrics Text */
+/* Ensure lyrics text stays inside */
 #lyricsText {
     text-align: center;
     line-height: 1.5;
     max-height: 80%;
     overflow-y: auto;
-    width: 80%;
+    width: 90%;
     font-weight: bold;
+    word-wrap: break-word; /* Prevents text from overflowing */
 }
 
 /* Center and animate the fish */
@@ -176,6 +180,5 @@ button:hover {
     50% { transform: translateX(-50%) translateY(-10px); }
     100% { transform: translateX(-50%) translateY(0px); }
 }
-
 
 
