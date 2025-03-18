@@ -17,21 +17,23 @@
     </div>
 
     <script>
-        function registerUser() {
-            const username = document.getElementById("signupUsername").value;
-            const password = document.getElementById("signupPassword").value;
+    function registerUser() {
+        const username = document.getElementById("signupUsername").value;
+        const password = document.getElementById("signupPassword").value;
 
-            if (username && password) {
-                localStorage.setItem("adminUsername", username);
-                localStorage.setItem("adminPassword", password);
-                document.getElementById("signupMessage").textContent = "Account created! You can now log in.";
-                setTimeout(() => {
-                    window.location.href = "auth.html";
-                }, 1500);
-            } else {
-                document.getElementById("signupMessage").textContent = "Please enter a username and password.";
-            }
+        if (username && password) {
+            localStorage.setItem("adminUsername", username);
+            localStorage.setItem("adminPassword", password);
+            localStorage.setItem("userExists", "true"); // New flag to indicate a user exists
+            document.getElementById("signupMessage").textContent = "Account created! Redirecting...";
+            setTimeout(() => {
+                window.location.href = "auth.html"; // Redirect to login page
+            }, 1500);
+        } else {
+            document.getElementById("signupMessage").textContent = "Please enter a username and password.";
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
