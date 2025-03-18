@@ -17,12 +17,12 @@
 
     <script>
         function adminLogin() {
-            const enteredUsername = document.getElementById("Saturogojo").value;
-            const enteredPassword = document.getElementById("Reversalred@123").value;
+            const enteredUsername = document.getElementById("adminUsername").value;
+            const enteredPassword = document.getElementById("adminPassword").value;
 
             // Get stored admin credentials
-            const correctAdminUsername = localStorage.getItem("adminUsername");
-            const correctAdminPassword = localStorage.getItem("adminPassword");
+            const correctAdminUsername = localStorage.getItem("Saturogojo");
+            const correctAdminPassword = localStorage.getItem("Reversalred@123");
 
             if (enteredUsername === correctAdminUsername && enteredPassword === correctAdminPassword) {
                 localStorage.setItem("isAdmin", "true");
