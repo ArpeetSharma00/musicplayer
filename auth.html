@@ -17,7 +17,7 @@
 <p id="adminLink" style="display: none;">Admin? <a href="admin_login.html">Login here</a></p>
 
 <script>
-    // Show the admin login link only for the admin
+    // Show the admin login link only if an admin account exists
     const storedAdmin = localStorage.getItem("adminUsername");
     if (storedAdmin) {
         document.getElementById("adminLink").style.display = "block";
@@ -25,25 +25,29 @@
 </script>
 
 
-    <script>
-        function checkLogin() {
-            const enteredUsername = document.getElementById("loginUsername").value;
-            const enteredPassword = document.getElementById("loginPassword").value;
 
-            const storedUsername = localStorage.getItem("adminUsername");
-            const storedPassword = localStorage.getItem("adminPassword");
+   <script>
+    function checkLogin() {
+        const enteredUsername = document.getElementById("loginUsername").value;
+        const enteredPassword = document.getElementById("loginPassword").value;
 
-            if (enteredUsername === storedUsername && enteredPassword === storedPassword) {
-                localStorage.setItem("isAdmin", "true");
-                window.location.href = "index.html"; // Redirect to main website
-            } else {
-                document.getElementById("loginMessage").textContent = "Incorrect username or password!";
-            }
+        const storedUsername = localStorage.getItem("adminUsername");
+        const storedPassword = localStorage.getItem("adminPassword");
+
+        if (enteredUsername === storedUsername && enteredPassword === storedPassword) {
+            localStorage.setItem("isAdmin", "true");
+            localStorage.setItem("userLoggedIn", "true");
+            window.location.href = "index.html"; // Redirect to main website
+        } else {
+            document.getElementById("loginMessage").textContent = "Incorrect username or password!";
         }
+    }
 
-        if (localStorage.getItem("isAdmin") === "true") {
-            window.location.href = "index.html";
-        }
-    </script>
+    // If already logged in, redirect to main page
+    if (localStorage.getItem("userLoggedIn") === "true") {
+        window.location.href = "index.html";
+    }
+</script>
+
 </body>
 </html>
