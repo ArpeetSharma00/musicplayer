@@ -20,9 +20,9 @@
             const enteredUsername = document.getElementById("adminUsername").value;
             const enteredPassword = document.getElementById("adminPassword").value;
 
-            // Get stored admin credentials
-            const correctAdminUsername = localStorage.getItem("Saturogojo");
-            const correctAdminPassword = localStorage.getItem("Reversalred@123");
+            // Hardcoded admin credentials
+            const correctAdminUsername = "Saturogojo"; // Change this
+            const correctAdminPassword = "Reversalred@123"; // Change this
 
             if (enteredUsername === correctAdminUsername && enteredPassword === correctAdminPassword) {
                 localStorage.setItem("isAdmin", "true");
