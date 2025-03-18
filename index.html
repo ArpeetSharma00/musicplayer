@@ -49,5 +49,18 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        // Remove all login-related data
+        localStorage.removeItem("isAdmin");
+        localStorage.removeItem("userLoggedIn");
+        localStorage.removeItem("adminUsername");
+        localStorage.removeItem("adminPassword");
+
+        // Redirect to login page
+        window.location.href = "auth.html";
+    });
+</script>
+
 </body>
 </html>
