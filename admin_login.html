@@ -20,18 +20,20 @@
             const enteredUsername = document.getElementById("adminUsername").value;
             const enteredPassword = document.getElementById("adminPassword").value;
 
-            // Replace 'yourAdminUsername' and 'yourAdminPassword' with your actual admin credentials
-            const correctAdminUsername = "yourAdminUsername";
-            const correctAdminPassword = "yourAdminPassword";
+            // Get stored admin credentials
+            const correctAdminUsername = localStorage.getItem("adminUsername");
+            const correctAdminPassword = localStorage.getItem("adminPassword");
 
             if (enteredUsername === correctAdminUsername && enteredPassword === correctAdminPassword) {
                 localStorage.setItem("isAdmin", "true");
+                localStorage.setItem("userLoggedIn", "true");
                 window.location.href = "index.html"; // Redirect to main site
             } else {
                 document.getElementById("adminLoginMessage").textContent = "Incorrect admin credentials!";
             }
         }
 
+        // If already logged in, redirect to main page
         if (localStorage.getItem("isAdmin") === "true") {
             window.location.href = "index.html";
         }
