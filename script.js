@@ -23,6 +23,7 @@ function addSongToLists(title, songURL) {
 
     let newSong = document.createElement("li");
     newSong.textContent = "🎵 " + title;
+    newSong.classList.add("song-item");
     newSong.onclick = function () {
         openPlayer(title, "default.jpg", songURL);
     };
