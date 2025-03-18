@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-    if (!localStorage.getItem("isAdmin")) {
-        window.location.href = "auth.html"; // Redirect to login if not logged in
+   <script>
+    // If not logged in, redirect to login page
+    if (!localStorage.getItem("isAdmin") && !localStorage.getItem("userLoggedIn")) {
+        window.location.href = "auth.html"; 
     }
 </script>
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
