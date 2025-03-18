@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | EchoAltar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Admin Login</h2>
+        <input type="text" id="adminUsername" placeholder="Admin Username">
+        <input type="password" id="adminPassword" placeholder="Admin Password">
+        <button onclick="adminLogin()">Login</button>
+        <p id="adminLoginMessage"></p>
+    </div>
+
+    <script>
+        function adminLogin() {
+            const enteredUsername = document.getElementById("adminUsername").value;
+            const enteredPassword = document.getElementById("adminPassword").value;
+
+            // Replace 'yourAdminUsername' and 'yourAdminPassword' with your actual admin credentials
+            const correctAdminUsername = "yourAdminUsername";
+            const correctAdminPassword = "yourAdminPassword";
+
+            if (enteredUsername === correctAdminUsername && enteredPassword === correctAdminPassword) {
+                localStorage.setItem("isAdmin", "true");
+                window.location.href = "index.html"; // Redirect to main site
+            } else {
+                document.getElementById("adminLoginMessage").textContent = "Incorrect admin credentials!";
+            }
+        }
+
+        if (localStorage.getItem("isAdmin") === "true") {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
