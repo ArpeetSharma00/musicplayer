@@ -12,6 +12,14 @@
     <title>EchoAltar</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+    <script>
+    function logoutUser() {
+        localStorage.removeItem("isAdmin");  // Remove admin status
+        localStorage.removeItem("userLoggedIn");  // Remove login status
+        window.location.href = "auth.html";  // Redirect to login page
+    }
+</script>
+
 <body>
     <header>
         <h1>EchoAltar 🎶</h1>
