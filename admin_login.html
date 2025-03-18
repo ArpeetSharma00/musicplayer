@@ -38,5 +38,13 @@
             window.location.href = "index.html";
         }
     </script>
+    <script>
+    function logoutUser() {
+        localStorage.removeItem("isAdmin");  
+        localStorage.removeItem("userLoggedIn");
+        window.location.href = "auth.html"; 
+    }
+</script>
+
 </body>
 </html>
