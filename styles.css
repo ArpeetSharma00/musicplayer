@@ -20,31 +20,6 @@ body {
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
 }
 
-/* Title */
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* Input Fields */
-.input-group {
-    margin-bottom: 15px;
-    width: 100%;
-}
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    background-color: #2a2a2a;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s;
-}
-.input-group input:focus {
-    background-color: #333;
-}
 
 /* Login Button */
 button {
@@ -90,40 +65,27 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Input Fields */
-.input-group {
-    margin-bottom: 15px;
+/* Ensure input fields and buttons are the same width */
+.input-group,
+button {
     width: 100%;
-}
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    background-color: #2a2a2a;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s;
-}
-.input-group input:focus {
-    background-color: #333;
 }
 
-/* Signup Button */
+/* Adjust button padding */
 button {
-    background-color: #4caf50;
+    background-color: #ff7b00;
     color: white;
     padding: 12px;
-    width: 100%;
     border: none;
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s ease;
 }
+
+/* Button hover effect */
 button:hover {
-    background-color: #45a049;
+    background-color: #e56a00;
 }
 
 /* Links */
