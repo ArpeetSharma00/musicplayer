@@ -12,18 +12,17 @@
         <h2>Login</h2>
         <form onsubmit="handleLogin(event)">
             <div class="input-group">
-                <input type="text" id="username" placeholder="Username" required>
+                <input type="text" id="login-username" placeholder="Username" required>
             </div>
             <div class="input-group">
-                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="login-password" placeholder="Password" required>
             </div>
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-        <p><a href="index.html">← Back to Home</a></p>
     </div>
 
-     <script>
+    <script>
         function handleLogin(event) {
             event.preventDefault();
 
@@ -33,15 +32,16 @@
 
             if (!storedPassword) {
                 alert("Account doesn't exist. Please sign up.");
+                window.location.href = "signup.html"; // Redirect to signup page
             } else if (storedPassword !== password) {
                 alert("Incorrect password. Try again.");
             } else {
                 alert("Login successful!");
-                window.location.href = "music.html";
+                window.location.href = "music.html"; // Redirect to music page
             }
         }
     </script>
 
-
 </body>
 </html>
+
