@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EchoAltar - Music</title>
-    <link rel="stylesheet" href="music.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            let userRole = localStorage.getItem("userRole");
+
+            if (userRole === "admin") {
+                document.getElementById("admin-controls").style.display = "block"; // Show admin options
+            }
+        });
+
+        function uploadSong() {
+            alert("Admin uploaded a song!");
+        }
+    </script>
 </head>
 <body>
 
     <div class="music-container">
         <h1>🎵 EchoAltar - Your Music Library</h1>
 
-        <!-- Search Bar -->
-        <input type="text" id="search-bar" placeholder="Search for a song..." onkeyup="searchSongs()">
+        <!-- Admin-Only Upload Section -->
+        <div id="admin-controls" style="display: none;">
+            <button onclick="uploadSong()">Upload Song (Admin Only)</button>
+        </div>
 
         <!-- Song List -->
         <ul id="song-list">
             <li class="song">Song 1 - Artist A</li>
             <li class="song">Song 2 - Artist B</li>
-            <li class="song">Song 3 - Artist C</li>
-            <li class="song">Song 4 - Artist D</li>
         </ul>
     </div>
 
