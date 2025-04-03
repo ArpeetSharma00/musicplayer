@@ -11,11 +11,15 @@
     <div class="login-container">
         <h2>Admin Login</h2>
         <form action="admin_login.php" method="POST">
-            <input type="text" name="admin_username" placeholder="Admin Username" required>
-            <input type="password" name="admin_password" placeholder="Admin Password" required>
+            <div class="input-group">
+                <input type="text" name="admin_username" placeholder="Admin Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="admin_password" placeholder="Password" required>
+            </div>
             <button type="submit">Login</button>
         </form>
-        <p><a href="index.html">Back to Home</a></p>
+        <p><a href="index.html">← Back to Home</a></p>
     </div>
 
 </body>
