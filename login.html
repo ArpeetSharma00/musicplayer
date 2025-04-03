@@ -23,22 +23,25 @@
         <p><a href="index.html">← Back to Home</a></p>
     </div>
 
-    <script>
+     <script>
         function handleLogin(event) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
 
-            // Simulate login validation (replace with backend validation)
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
+            let username = document.getElementById("login-username").value;
+            let password = document.getElementById("login-password").value;
+            let storedPassword = localStorage.getItem(username);
 
-            if (username && password) {
-                // Simulated login success - redirect to music page
-                window.location.href = "music.html";
+            if (!storedPassword) {
+                alert("Account doesn't exist. Please sign up.");
+            } else if (storedPassword !== password) {
+                alert("Incorrect password. Try again.");
             } else {
-                alert("Invalid username or password. Please try again.");
+                alert("Login successful!");
+                window.location.href = "music.html";
             }
         }
     </script>
+
 
 </body>
 </html>
