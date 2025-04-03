@@ -8,19 +8,39 @@
 </head>
 <body>
 
-    <div class="login-container">
+    <div class="admin-login-container">
         <h2>Admin Login</h2>
-        <form action="admin_login.php" method="POST">
+        <form onsubmit="handleAdminLogin(event)">
             <div class="input-group">
-                <input type="text" name="admin_username" placeholder="Admin Username" required>
+                <input type="text" id="admin-username" placeholder="Admin Username" required>
             </div>
             <div class="input-group">
-                <input type="password" name="admin_password" placeholder="Password" required>
+                <input type="password" id="admin-password" placeholder="Admin Password" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Login as Admin</button>
         </form>
-        <p><a href="index.html">← Back to Home</a></p>
     </div>
+
+    <script>
+        function handleAdminLogin(event) {
+            event.preventDefault();
+
+            let username = document.getElementById("admin-username").value;
+            let password = document.getElementById("admin-password").value;
+
+            // Admin credentials (Hardcoded for now)
+            const adminUsername = "admin";
+            const adminPassword = "admin123";
+
+            if (username === adminUsername && password === adminPassword) {
+                alert("Admin login successful!");
+                localStorage.setItem("userRole", "admin"); // Store role in local storage
+                window.location.href = "music.html"; // Redirect to music page
+            } else {
+                alert("Invalid admin credentials.");
+            }
+        }
+    </script>
 
 </body>
 </html>
